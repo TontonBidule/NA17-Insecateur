@@ -1,0 +1,9 @@
+#ENVOI D'UNE MISE A JOUR
+
+git add fichier.php OU git add.
+git commit -m "Indication particulière sur la mise a jour"
+git push
+
+#RECUPERATION DES MISES A JOUR
+
+git pull
