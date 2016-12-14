@@ -20,8 +20,6 @@ DROP TABLE Posseder CASCADE;
 DROP TABLE Proposer CASCADE;
 DROP TABLE EffectuerTransactionAvec CASCADE;
 
-BEGIN;
-
 CREATE TABLE TypePokemon(
 	nom varchar primary key);
 	
@@ -185,4 +183,3 @@ CREATE TABLE EffectuerTransactionAvec(
 	PRIMARY KEY(shop,joueur)
 );
 
-COMMIT;
