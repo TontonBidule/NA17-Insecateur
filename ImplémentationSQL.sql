@@ -19,12 +19,19 @@ DROP TABLE Vendre CASCADE;
 DROP TABLE Posseder CASCADE;
 DROP TABLE Proposer CASCADE;
 DROP TABLE EffectuerTransactionAvec CASCADE;
+DROP TYPE typeObjet;
+DROP TYPE typeSexe;
+DROP TYPE typePokeball;
+
+CREATE TYPE typeObjet AS ENUM ('achetable','trouvable','donne');
+CREATE TYPE typeSexe AS ENUM ('masculin','feminin');
+CREATE TYPE typePokeball AS ENUM ('artisanale','classique');
 
 CREATE TABLE TypePokemon(
-	nom varchar primary key);
+	nom varchar PRIMARY KEY);
 	
 CREATE TABLE EspecePokemon(
-	nom varchar primary key,
+	nom varchar PRIMARY KEY,
 	numFamille integer,
 	probaApparition float,
 	probaCapture float,
@@ -37,6 +44,13 @@ CREATE TABLE EspecePokemon(
 	evolution varchar references EspecePokemon(nom),
 	CHECK(probaApparition>=0 AND probaApparition<=1 AND probaCapture>=0 AND probaCapture<=1)
 	);
+	
+CREATE TABLE Objet(
+	nom varchar PRIMARY KEY,
+	type typeObjet not null,
+	description varchar,
+	prixVente integer
+);
 
 CREATE TABLE IndividuPokemon(
 	nom varchar references EspecePokemon(nom),
@@ -50,30 +64,11 @@ CREATE TABLE IndividuPokemon(
 	CHECK(attaqueIV>=0 AND attaqueIV<=15 AND defenseIV>=0 AND defenseIV<=15 AND santeIV>=0 AND santeIV<=15)
 	);
 
-
-CREATE TABLE PokemonSauvage(
-	nom varchar references IndividuPokemon(nom),
-	num integer references IndividuPokemon(num),
-	coord_lattitude float,
-	coord_longitude float,
-	unique(coord_lattitude, coord_longitude),
-	primary key(nom,num)
-);
-
-CREATE TABLE PokemonCapture(
-	nom varchar references IndividuPokemon(nom),
-	num integer references IndividuPokemon(num),
-	dresseur varchar not null references joueur(nom),
-	pokeball varchar not null references Pokeball(nom),
-	primary key(nom,num)
-);
-
-
 CREATE TABLE Joueur(
-	nom varchar primary key,
+	nom varchar PRIMARY KEY,
 	email varchar unique,
 	dateNaissance date not null,
-	genre varchar not null,
+	genre typeSexe not null,
 	pays varchar not null,
 	experienceCumulee integer,
 	coord_lattitude float,
@@ -83,14 +78,40 @@ CREATE TABLE Joueur(
 	derniereConnexion date,
 	pokeCoins integer,
 	argent float,
-	unique(coord_lattitude, coord_longitude),
-	check(genre = "masculin" or genre = "feminin")
+	unique(coord_lattitude, coord_longitude)
 	
 );
 
+CREATE TABLE Pokeball(
+	nom varchar PRIMARY KEY references Objet(nom),
+	type typePokeball
+);
+
+CREATE TABLE PokemonSauvage(
+	nom varchar,
+	num integer,
+	coord_lattitude float,
+	coord_longitude float,
+	unique(coord_lattitude,coord_longitude),
+	PRIMARY KEY(nom,num),
+	FOREIGN KEY(nom,num) REFERENCES IndividuPokemon(nom,num)
+);
+
+CREATE TABLE PokemonCapture(
+	nom varchar,
+	num integer,
+	dresseur varchar not null references Joueur(nom),
+	pokeball varchar not null references Pokeball(nom),
+	PRIMARY KEY(nom,num),
+	FOREIGN KEY(nom,num) REFERENCES IndividuPokemon(nom,num)
+);
+
+
+
+
 
 CREATE TABLE Arene(
-	nom varchar primary key,
+	nom varchar PRIMARY KEY,
 	photo varchar unique,
 	coord_lattitude float,
 	coord_longitude float,
@@ -98,7 +119,7 @@ CREATE TABLE Arene(
 );
 
 CREATE TABLE Pokestop(
-	nom varchar primary key,
+	nom varchar PRIMARY KEY,
 	photo varchar unique,
 	coord_lattitude float,
 	coord_longitude float,
@@ -106,27 +127,17 @@ CREATE TABLE Pokestop(
 );
 
 CREATE TABLE Shop(
-	pays varchar primary key
+	pays varchar PRIMARY KEY
 );
 
-CREATE TABLE Objet(
-	nom varchar primary key,
-	type varchar not null,
-	description varchar,
-	prixVente integer,
-	check(type = "achetable" or type="trouvable" or type="donne")
-);
+
 
 CREATE TABLE Potion(
-	nom varchar primary key references Objet(nom),
+	nom varchar PRIMARY KEY references Objet(nom),
 	santeRestauree integer not null
 );
 
-CREATE TABLE Pokeball(
-	nom varchar primary key references Objet(nom),
-	type varchar,
-	check(type = "classique" or type="artisanale")
-);
+
 
 CREATE TABLE ParametresAdmin(
 	distanceMaxPokestop integer,
@@ -172,7 +183,7 @@ CREATE TABLE Proposer(
 	pokestop varchar references Pokestop(nom),
 	objet varchar references Objet(nom),
 	quantite integer NOT NULL,
-	PRIMARY KEY(joueur,objet)
+	PRIMARY KEY(pokestop,objet)
 );
 
 CREATE TABLE EffectuerTransactionAvec(
