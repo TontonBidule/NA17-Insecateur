@@ -39,7 +39,7 @@ CREATE TABLE EspecePokemon(
 	baseDefense float,
 	baseSante float,
 	capaciteCombatBase float,
-	type1 varchar references TypePokemon(nom),
+	type1 varchar references TypePokemon(nom) NOT NULL,
 	type2 varchar references TypePokemon(nom),
 	evolution varchar references EspecePokemon(nom),
 	CHECK(probaApparition>=0 AND probaApparition<=1 AND probaCapture>=0 AND probaCapture<=1)
