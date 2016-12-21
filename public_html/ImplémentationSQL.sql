@@ -143,7 +143,7 @@ CREATE TABLE ParametresAdmin(
 	distanceMaxPokestop integer,
 	distanceMaxPokemon integer,
 	maxCapture integer,
-	maxPokestopsVisiTABLEs integer,
+	maxPokestopsVisitables integer,
 	PRIMARY KEY(distanceMaxPokestop,distanceMaxPokemon,maxCapture,maxPokestopsVisiTABLEs)
 );
 
