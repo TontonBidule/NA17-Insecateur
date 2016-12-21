@@ -1,26 +1,5 @@
-
 ﻿<html>
 <body>
-
-<h2>Inscription de Joueur</h2>
-<form action = "inscription2.php" method = "POST"><br>
-Nom: <input type = "text" name = "nom"><br>
-Email: <input type = "text" name = "email"><br>
-Date de naissance(format:1992/06/06): <input type = "date" name = "dateNaissance"><br>
-Genre: <br>
-<input type = "radio" name = "genre" value = "masculin">Garçon<br>
- <input type = "radio" name = "genre" value = "feminin">Fille<br>
-Pays: <input type = "text" name = "pays"><br>
-Position au début:<br>
-Longitude: <input type = "text" name = "coord_longitude">
-<br>
-Latitude: <input type = "text" name = "coord_lattitude">
-<br>
-<input type = "submit" value = "Inscription" >
-</form>
-</body>
-
-
 
 <div id="container" style="width:900px">
  
@@ -36,12 +15,12 @@ Latitude: <input type = "text" name = "coord_lattitude">
 		</td>
 	</tr>
 	<tr>
-		<td>
+		<td onclick = "window.location = 'accessJoueur.php'">
 		<center>Accéder</center>
 		</td>
 	</tr>
 	<tr>
-		<td>
+		<td onclick = "window.location = 'inscription.php'">
 		<center>Inscription</center>
 		</td>
 	</tr>
@@ -59,20 +38,20 @@ Latitude: <input type = "text" name = "coord_lattitude">
 <form action = "inscription2.php" method = "POST">
 <table>
 	<tr>
-		<td>Nom: </td>
+		<td>Nom * : </td>
 		<td><input type = "text" name = "nom"></td>
 	</tr>
 	<tr>
-		<td>Email: </td>
+		<td>Email * : </td>
 		<td><input type = "text" name = "email"></td>
 	</tr>
 	
 	<tr>
-		<td>Date de naissance(format:1992/06/06): </td>
+		<td>Date de naissance(format:1992/06/06) * : </td>
 		<td><input type = "date" name = "dateNaissance"></td>
 	</tr>
 	<tr>
-		<td>Genre: </td>
+		<td>Genre * : </td>
 		<td>
 		<input type = "radio" name = "genre" value = "masculin">Garçon
 		<input type = "radio" name = "genre" value = "feminin">Fille
@@ -89,14 +68,17 @@ Latitude: <input type = "text" name = "coord_lattitude">
 		<td></td>
 	</tr>
 	<tr>
-		<td>Longitude:</td>
+		<td>Longitude * :</td>
 		<td>
 		 <input type = "text" name = "coord_longitude">
 		</td>
 	</tr>
 	<tr>
-		<td>Latitude:</td>
+		<td>Latitude * :</td>
 		<td><input type = "text" name = "coord_lattitude"></td>
+	</tr>
+	<tr>
+		<td>(Les champs avec * sont obligatoires.)</td>
 	</tr>
 	</table>
 
@@ -112,5 +94,4 @@ Equipe I de NA17
  
 </div>
 </body>
-
 </html>

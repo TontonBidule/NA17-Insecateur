@@ -1,42 +1,114 @@
 <html>
-
 <body>
-
+ 
+<div id="container" style="width:900px">
+ 
+<div id="header" style="background-color:#fafad2;">
+	<center><h1 style="margin-bottom:0;">Pokemon Go</h1></center>
+</div>
+ 
+<div id="menu" style="background-color:#778899;height:550px;width:150px;float:left;">
+<table>
+	<tr>
+		<td>
+		<center>Menu</center>
+		</td>
+	</tr>
+	<tr>
+		<td onclick = "window.location = 'access.php'">
+		<center>Accéder</center>
+		</td>
+	</tr>
+	<tr>
+		<td onclick = "window.location = 'inscription.php'">
+		<center>Inscription</center>
+		</td>
+	</tr>
+	<tr>
+		<td>
+		<center>Administration</center>
+		</td>
+	</tr>
+</table>
+</div>
+ 
+<div id="content" style="display:table;margin:0 auto;background-color:#EEEEEE;height:550px;width:750px;float:left;">
 <?php
-
-	echo $_POST["nom"]."<br>";
-	echo $_POST["email"]."<br>";
-	echo $_POST["dateNaissance"]."<br>";
-	echo $_POST["genre"]."<br>";
-	echo $_POST["pays"]."<br>";
-	echo $_POST["coord_longitude"]."<br>";
-	echo $_POST["coord_lattitude"]."<br>";
+	$nom= null;
+	$email= null;
+	$dateNaissance= null;
+	$genre= null;
+	$pays= null;
+	$clo= null;
+	$cla= null;
+	$messageErr = "";
+	if(!empty($_POST["nom"])){
+		$nom= $_POST["nom"];
+	}
+	if(!empty($_POST["email"])){
+		$email= $_POST["email"];
+	}
+	if(!empty($_POST["dateNaissance"])){
+		$dateNaissance= $_POST["dateNaissance"];
+	}
+	if(!empty($_POST["genre"])){
+		$genre= $_POST["genre"];
+	}
+	if(!empty($_POST["pays"])){
+		$pays= $_POST["pays"];
+	}
+	if(!empty($_POST["coord_longitude"])){
+		$clo= $_POST["coord_longitude"];
+	}
+	if(!empty($_POST["coord_lattitude"])){
+		$cla= $_POST["coord_lattitude"];
+	}
 	
-	$nom= $_POST["nom"];
-	$email= $_POST["email"];
-	$dateNaissance= $_POST["dateNaissance"];
-	$genre= $_POST["genre"];
-	$pays= $_POST["pays"];
-	$clo= $_POST["coord_longitude"];
-	$cla= $_POST["coord_lattitude"];
-	
-	$vHost = "localhost";
-	$vPort = 5432;
-	$vDbname = "postgres";
-	$vPassword = "a13241324";
-	$vUser = "postgres";
-	$vConn = pg_connect("host=$vHost port=$vPort dbname=$vDbname user=$vUser password=$vPassword");
-	$vSql ="INSERT INTO joueur (nom, email, dateNaissance, genre, pays, coord_longitude, coord_lattitude) VALUES ('".
-		$nom."', '".
-		$email."', '".
-		$dateNaissance."', '".
-		$genre."', '".
-		$pays."', '".
-		$clo."', '".
-		$cla."'"
-		.")";
-	echo $vSql;
-	$vQuery=pg_query($vConn, $vSql);
-?>
+	if(empty($nom) || empty($email)|| empty($clo)|| empty($cla) || empty($dateNaissance) || empty($genre)){
+		$messageErr = "Les champs avec * sont obligatoires.";
+	}
+	else if(!is_numeric($clo) || !is_numeric($cla)){
+		$messageErr = "Les GPS doivent être numéro.";
+	}
+	else if(!is_numeric($clo) || !is_numeric($cla)){
+		$messageErr = "Les GPS doivent être numéro.";
+	}
+	else if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
+		$messageErr = "Le format de l'adresse email n'est pas correcte.";
+	}?>
+	<div style = 'display:table-cell; vertical-align:middle;'>
+	<center><table>
+	<tbody>
+	<?php
+	if($messageErr == ""){
+		include("connexionBDD.php");
+		$vSql ="INSERT INTO joueur (nom, email, dateNaissance, genre, pays, coord_longitude, coord_lattitude) VALUES ('".
+			$nom."', '".
+			$email."', '".
+			$dateNaissance."', '".
+			$genre."', '".
+			$pays."', '".
+			$clo."', '".
+			$cla."'"
+			.")";
+		//echo $vSql;
+		$vQuery=pg_query($vConn, $vSql);
+		echo "<tr><td>Inscription avec succés!</td></tr>";
+	}
+	else{
+		echo "<tr><td>".$messageErr."</tr></td>";
+		echo "<tr><td><button onclick ='history.go(-1);' >Retourner</button></tr></td>";
+	}
+	?>
+	</tbody>
+	</table></center>
+	</div>
+</div>
+ 
+<div id="footer" style="background-color:#fafad2;clear:both;text-align:center;">
+Equipe I de NA17
+</div>
+ 
+</div>
 </body>
 </html>
