@@ -1,0 +1,745 @@
+1;Master Ball
+2;Hyper Ball
+3;Super Ball
+4;Poké Ball
+5;Safari Ball
+6;Filet Ball
+7;Scuba Ball
+8;Faiblo Ball
+9;Bis Ball
+10;Chrono Ball
+11;Luxe Ball
+12;Honor Ball
+13;Sombre Ball
+14;Soin Ball
+15;Rapide Ball
+16;Mémoire Ball
+17;Potion
+18;Antidote
+19;Anti-Brûle
+20;Antigel
+21;Réveil
+22;Anti-Para
+23;Guérison
+24;Potion Max
+25;Hyper Potion
+26;Super Potion
+27;Total Soin
+28;Rappel
+29;Rappel Max
+30;Eau Fraîche
+31;Soda Cool
+32;Limonade
+33;Lait Meumeu
+34;Poudrénergie
+35;Racinénergie
+36;Poudre Soin
+37;Herbe Rappel
+38;Huile
+39;Huile Max
+40;Élixir
+41;Max Élixir
+42;Lava Cookie
+43;Jus de Baie
+44;Cendre Sacrée
+45;PV Plus
+46;Protéine
+47;Fer
+48;Carbone
+49;Calcium
+50;Super Bonbon
+51;PP Plus
+52;Zinc
+53;PP Max
+54;Vieux Gâteau
+55;Défense Spéciale
+56;Muscle +
+57;Attaque +
+58;Défense +
+59;Vitesse +
+60;Précision +
+61;Spécial +
+62;Déf. Spé. +
+63;Poképoupée
+64;Queue Skitty
+65;Flûte Bleue
+66;Flûte Jaune
+67;Flûte Rouge
+68;Flûte Noire
+69;Flûte Blanche
+70;Sel Tréfonds
+71;CoquilleTréfonds
+72;Tesson Rouge
+73;Tesson Bleu
+74;Tesson Jaune
+75;Tesson Vert
+76;Superepousse
+77;Max Repousse
+78;Corde Sortie
+79;Repousse
+80;Pierre Soleil
+81;Pierre Lune
+82;Pierre Feu
+83;Pierre Foudre
+84;Pierre Eau
+85;Pierre Plante
+86;Petit Champi
+87;Gros Champi
+88;Perle
+89;Grande Perle
+90;Poussière Étoile
+91;Morceau d'Étoile
+92;Pépite
+93;Écaille Cœur
+94;Miel
+95;Fertipousse
+96;Fertihumide
+97;Fertistable
+98;Fertiglu
+99;Fossile Racine
+100;Fossile Griffe
+101;Nautile
+102;Fossile Dôme
+103;Vieil Ambre
+104;Fossile Armure
+105;Fossile Crâne
+106;Os Rare
+107;Pierre Éclat
+108;Pierre Nuit
+109;Pierre Aube
+110;Pierre Ovale
+111;Clé de Voûte
+112;Orbe Adamant
+113;Orbe Perlé
+114;Lettre Herbe
+115;Lettre Feu
+116;Lettre Mer
+117;Lett. Pétale
+118;Lettre Mine
+119;Lettre Acier
+120;Lettre Coeur
+121;Lettre Neige
+122;Lettre Cosmo
+123;Lettre Avion
+124;Lettremosaïk
+125;Lettre Brik
+126;Baie Ceriz
+127;Baie Maron
+128;Baie Pêcha
+129;Baie Fraive
+130;Baie Willia
+131;Baie Mepo
+132;Baie Oran
+133;Baie Kika
+134;Baie Prine
+135;Baie Sitrus
+136;Baie Figuy
+137;Baie Wiki
+138;Baie Mago
+139;Baie Gowav
+140;Baie Papaya
+141;Baie Framby
+142;Baie Remu
+143;Baie Nanab
+144;Baie Repoi
+145;Baie Nanana
+146;Baie Grena
+147;Baie Alga
+148;Baie Qualot
+149;Baie Lonme
+150;Baie Résin
+151;Baie Tamato
+152;Baie Siam
+153;Baie Mangou
+154;Baie Rabuta
+155;Baie Tronci
+156;Baie Kiwan
+157;Baie Palma
+158;Baie Stekpa
+159;Baie Durin
+160;Baie Myrte
+161;Baie Chocco
+162;Baie Pocpoc
+163;Baie Parma
+164;Baie Ratam
+165;Baie Nanone
+166;Baie Pomroz
+167;Baie Kébia
+168;Baie Jouca
+169;Baie Cobaba
+170;Baie Yapap
+171;Baie Panga
+172;Baie Charti
+173;Baie Sédra
+174;Baie Fraigo
+175;Baie Lampou
+176;Baie Babiri
+177;Baie Zalis
+178;Baie Lichii
+179;Baie Lingan
+180;Baie Sailak
+181;Baie Pitaye
+182;Baie Abriko
+183;Baie Lansat
+184;Baie Frista
+185;Baie Enigma
+186;Baie Micle
+187;Baie Chérim
+188;Baie Jaboca
+189;Baie Pommo
+190;Poudre Claire
+191;Herbe Blanche
+192;Bracelet Macho
+193;Multi Exp
+194;Vive Griffe
+195;Grelot Zen
+196;Herbe Mental
+197;Bandeau Choix
+198;Roche Royale
+199;Poudre Argentée
+200;Pièce Rune
+201;Rune Purifiante
+202;Rosée Âme
+203;Dent Océan
+204;Écaille Océan
+205;Boule Fumée
+206;Pierre Stase
+207;Bandeau
+208;Œuf Chance
+209;Lentilscope
+210;Peau Métal
+211;Restes
+212;Écaille Draco
+213;Balle Lumière
+214;Sable Doux
+215;Pierre Dure
+216;Grain Miracle
+217;Lunettes Noires
+218;Ceinture Noire
+219;Aimant
+220;Eau Mystique
+221;Bec Pointu
+222;Pic Venin
+223;Glace Éternelle
+224;Rune Sort
+225;Cuiller Tordue
+226;Charbon
+227;Croc Dragon
+228;Mouchoir Soie
+229;Améliorator
+230;Grelot Coque
+231;Encens Mer
+232;Encens Doux
+233;Poing Chance
+234;Poudre Métal
+235;Masse Os
+236;Bâton
+237;Foulard Rouge
+238;Foulard Bleu
+239;Foulard Rose
+240;Foulard Vert
+241;Foulard Jaune
+242;Loupe
+243;Bandeau Muscle
+244;Lunettes Sages
+245;Ceinture Pro
+246;Lumargile
+247;Orbe Vie
+248;Herbe Pouvoir
+249;Orbe Toxique
+250;Orbe Flamme
+251;Poudre Vite
+252;Ceinture Force
+253;Lentille Zoom
+254;Métronome
+255;Balle Fer
+256;Ralentiqueue
+257;Nœud Destin
+258;Boue Noire
+259;Roche Glace
+260;Roche Lisse
+261;Roche Chaude
+262;Roche Humide
+263;Accro Griffe
+264;Mouchoir Choix
+265;Piquants
+266;Poignée Pouvoir
+267;Ceinture Pouvoir
+268;Lentille Pouvoir
+269;Bandeau Pouvoir
+270;Chaîne Pouvoir
+271;Poids Pouvoir
+272;Carapace Mue
+273;Grosse Racine
+274;Lunettes Choix
+275;Plaque Flamme
+276;Plaque Hydro
+277;Plaque Volt
+278;Plaque Herbe
+279;Plaque Glace
+280;Plaque Poing
+281;Plaque Toxik
+282;Plaque Terre
+283;Plaque Ciel
+284;Plaque Esprit
+285;Plaque Insecte
+286;Plaque Roc
+287;Plaque Fantô
+288;Plaque Draco
+289;Plaque Ombre
+290;Plaque Fer
+291;Encens Bizarre
+292;Encens Roc
+293;Encens Plein
+294;Encens Vague
+295;Encens Fleur
+296;Encens Veine
+297;Encens Pur
+298;Protecteur
+299;Électriseur
+300;Magmariseur
+301;CD Douteux
+302;Tissu Fauche
+303;Griffe Rasoir
+304;Croc Rasoir
+305;CT01
+306;CT02
+307;CT03
+308;CT04
+309;CT05
+310;CT06
+311;CT07
+312;CT08
+313;CT09
+314;CT10
+315;CT11
+316;CT12
+317;CT13
+318;CT14
+319;CT15
+320;CT16
+321;CT17
+322;CT18
+323;CT19
+324;CT20
+325;CT21
+326;CT22
+327;CT23
+328;CT24
+329;CT25
+330;CT26
+331;CT27
+332;CT28
+333;CT29
+334;CT30
+335;CT31
+336;CT32
+337;CT33
+338;CT34
+339;CT35
+340;CT36
+341;CT37
+342;CT38
+343;CT39
+344;CT40
+345;CT41
+346;CT42
+347;CT43
+348;CT44
+349;CT45
+350;CT46
+351;CT47
+352;CT48
+353;CT49
+354;CT50
+355;CT51
+356;CT52
+357;CT53
+358;CT54
+359;CT55
+360;CT56
+361;CT57
+362;CT58
+363;CT59
+364;CT60
+365;CT61
+366;CT62
+367;CT63
+368;CT64
+369;CT65
+370;CT66
+371;CT67
+372;CT68
+373;CT69
+374;CT70
+375;CT71
+376;CT72
+377;CT73
+378;CT74
+379;CT75
+380;CT76
+381;CT77
+382;CT78
+383;CT79
+384;CT80
+385;CT81
+386;CT82
+387;CT83
+388;CT84
+389;CT85
+390;CT86
+391;CT87
+392;CT88
+393;CT89
+394;CT90
+395;CT91
+396;CT92
+397;CS01
+398;CS02
+399;CS03
+400;CS04
+401;CS05
+402;CS06
+403;CS07
+404;CS08
+405;Explorakit
+406;Sac Butin
+407;Livre Règles
+408;Poké Radar
+409;Carte Points
+410;Journal
+411;Boîte Sceaux
+412;Coffret Mode
+413;Sac Sceaux
+414;Registre Ami
+415;Clé Centrale
+416;Vieux Grigri
+417;Clé Galaxie
+418;Chaîne Rouge
+419;Carte
+420;Cherche VS
+421;Boîte Jetons
+422;Canne
+423;Super Canne
+424;Méga Canne
+425;Kwakarrosoir
+426;Boîte Poffin
+427;Bicyclette
+428;Clé Chambre
+429;Lettre Chen
+430;Lun'Aile
+431;Carte Membre
+432;Flûte Azur
+433;Passe Bateau
+434;Passe Concours
+435;Pierre Magma
+436;Colis
+437;Bon 1
+438;Bon 2
+439;Bon 3
+440;Clé Stockage
+441;Potion Secrète
+442;Orbe Platiné
+443;Magnéto VS
+444;Gracidée
+445;Clé Secrète
+446;Boîte Noigrume
+447;Plante-Baies
+448;Carapuce à O
+449;Appât Ball
+450;Niveau Ball
+451;Lune Ball
+452;Masse Ball
+453;Speed Ball
+454;Copain Ball
+455;Love Ball
+456;Parc Ball
+457;Compét'Ball
+458;Noigrume Rge
+459;Noigrume Blu
+460;Noigrume Jne
+461;Noigrume Ver
+462;Noigrume Ros
+463;Noigrume Blc
+464;Noigrume Noi
+465;Cherch'Objet
+466;Bonbon Rage
+467;Orbe Rouge
+468;Orbe Bleu
+469;Orbe Vert
+470;Mystécristal
+471;Carnet Zarbi
+472;Carte Bleue
+473;Queueramolos
+474;Glas Transparent
+475;Carte Magnétique
+476;Clé Sous-Sol
+477;Écaillerouge
+478;Objet perdu
+479;Passe Train
+480;Partie Machine
+481;Argent'Aile
+482;Arcenci'Aile
+483;Œuf Mystère
+484;Lecteur GB
+485;Glas Tempête
+486;Carte Mémo01
+487;Carte Mémo02
+488;Carte Mémo03
+489;Carte Mémo04
+490;Carte Mémo05
+491;Carte Mémo06
+492;Carte Mémo07
+493;Carte Mémo08
+494;Carte Mémo09
+495;Carte Mémo10
+496;Carte Mémo11
+497;Carte Mémo12
+498;Carte Mémo13
+499;Carte Mémo14
+500;Carte Mémo15
+501;Carte Mémo16
+502;Carte Mémo17
+503;Carte Mémo18
+504;Carte Mémo19
+505;Carte Mémo20
+506;Carte Mémo21
+507;Carte Mémo22
+508;Carte Mémo23
+509;Carte Mémo24
+510;Carte Mémo25
+511;Carte Mémo26
+512;Carte Mémo27
+513;Poké Écrin
+514;Album Photo
+515;Lettre Oranj
+516;Lettre Port
+517;Lettre Brill
+518;Lettre Méca
+519;Lettre Bois
+520;Lettre Vague
+521;Lettre Bulle
+522;Lettre Ombre
+523;Lettre Tropi
+524;Lettre Songe
+525;Lettre Cool
+526;Lettre Retro
+527;Vélo Course
+528;Vélo Cross
+529;Seau Wailmer
+530;Pack Devon
+531;Sac à Suie
+532;Boîte Pokéblocs
+533;Lettre
+534;Passe Éon
+535;Scanner
+536;Lunet. Sable
+537;Météorite
+538;Clé Salle 1
+539;Clé Salle 2
+540;Clé Salle 4
+541;Clé Salle 6
+542;Devon Scope
+543;Colis Chen
+544;Pokéflûte
+545;Bon Commande
+546;Dent d'Or
+547;Clé Asc.
+548;Scope Sylphe
+549;Memorydex
+550;Boîte CT
+551;Sac à Baies
+552;TV ABC
+553;Tri-Passe
+554;Passe Prisme
+555;Thé
+556;Ticketmystik
+557;Ticketaurora
+558;Pot Poudre
+559;Rubis
+560;Saphir
+561;Sceau Magma
+562;Vieillecarte
+563;Module Aqua
+564;Module Choc
+565;Module Pyro
+566;Module Cryo
+567;Chococœur
+568;Lettre Salut
+569;Lettre Fan
+570;Lettre Invit
+571;Lettre Merci
+572;Lettre Demande
+573;Lettre Avis
+574;Lettre Réponse
+575;Lettre PontS
+576;Lettre PontY
+577;Lettre PontF
+578;Lettre PontH
+579;Lettre PontI
+580;Bel'Écaille
+581;Évoluroc
+582;Pierrallégée
+583;Casque Brut
+584;Ballon
+585;Carton Rouge
+586;Point de Mire
+587;Bande Étreinte
+588;Bulbe
+589;Pile
+590;Bouton Fuite
+591;Joyau Feu
+592;Joyau Eau
+593;Joyau Électrik
+594;Joyau Plante
+595;Joyau Glace
+596;Joyau Combat
+597;Joyau Poison
+598;Joyau Sol
+599;Joyau Vol
+600;Joyau Psy
+601;Joyau Insecte
+602;Joyau Roche
+603;Joyau Spectre
+604;Joyau Ténèbres
+605;Joyau Acier
+606;Aile Santé
+607;Aile Force
+608;Aile Armure
+609;Aile Esprit
+610;Aile Mental
+611;Aile Sprint
+612;Jolie Aile
+613;Fossile Plaque
+614;Fossile Plume
+615;Pass Liberté
+616;Offrisphère
+617;Rêve Ball
+618;Poképlumet
+619;Boîte Parure
+620;Crâne Dragon
+621;Champi Suave
+622;Maxi Pépite
+623;Perle Triple
+624;Morceau Comète
+625;Vieux Sou
+626;Vieil Écu
+627;Vieux Ducat
+628;Vieux Vase
+629;Vieux Bijou
+630;Vieux Santon
+631;Vieux Tortil
+632;Glace Volute
+633;Muscle 2
+634;Vitesse 2
+635;Atq. Spé. 2
+636;Déf. Spé. 2
+637;Défense 2
+638;Attaque 2
+639;Précision 2
+640;Vitesse 3
+641;Atq. Spé. 3
+642;Déf. Spé. 3
+643;Défense 3
+644;Attaque 3
+645;Précision 3
+646;Vitesse 6
+647;Atq. Spé. 6
+648;Déf. Spé. 6
+649;Défense 6
+650;Attaque 6
+651;Précision 6
+652;Appel Talent
+653;Jette Objet
+654;Appel Objet
+655;Réamorçage
+656;Muscle 3
+657;Galet Blanc
+658;Galet Noir
+659;CT93
+660;CT94
+661;CT95
+662;Vokit
+664;Courrier 1
+665;Courrier 2
+666;Courrier 3
+668;Joyau Dragon
+669;Joyau Normal
+670;Boîte Médailles
+671;Pointeau ADN
+673;Permis
+674;Charme Ovale
+675;Charme Chroma
+676;Carte Plasma
+677;Mouchoir Sale
+678;Nikodule
+679;Objet Trouvé
+681;Miroir Sacré
+682;Vulné-Assurance
+683;Veste de Combat
+684;Plaque Pixie
+685;Pilule Talent
+686;Chantibonbon
+687;Sachet Senteur
+688;Lichen Lumineux
+689;Boule de Neige
+690;Lunettes Filtre
+691;Fertibondance
+692;Fertistantané
+693;Fertibérance
+694;Fertiprodige
+695;Ectoplasmite
+696;Gardevoirite
+697;Pharampite
+698;Florizarrite
+699;Dracaufite X
+700;Tortankite
+701;Mewtwoïte X
+702;Mewtwoïte Y
+703;Braségalite
+704;Charminite
+705;Démolossite
+706;Galekingite
+707;Branettite
+708;Tyranocivite
+709;Cizayoxite
+710;Scarabruite
+711;Ptéraïte
+712;Lucarite
+713;Blizzarite
+714;Kangourexite
+715;Léviatorite
+716;Absolite
+717;Dracaufite Y
+718;Alakazamite
+719;Scarhinoïte
+720;Mysdibulite
+721;Élecsprintite
+722;Carchacrokite
+723;Baie Selro
+724;Baie Éka
+725;Baie Rangma
+726;Bon Réduction
+727;Bibelot Bizarre
+728;Galette Illumis
+729;Fossile Mâchoire
+730;Fossile Nageoire
+731;Joyau Fée
+732;ABC Aventure
+733;Clé Ascenseur
+734;Holokit
+735;Insigne de Kalos
+736;Pierre Insolite
+737;Boîte Lentilles
+738;Ticket Beladonis
+739;Méga-Anneau
+740;Passe Centrale
+741;Lettre du Prof
+742;Rollers
+743;Nénurrosoir
+744;Passe TMV
+745;CT96
+746;CT97
+747;CT98
+748;CT99
+749;CT100
