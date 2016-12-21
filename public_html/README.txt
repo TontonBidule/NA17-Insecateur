@@ -46,9 +46,14 @@ implémentationSQL.sql
 index.html
 >page d'accueil du site
 
+accessJoueur.php
+>Acc¨¨s des joueurs
+
 inscription.php
+>sert ¨¤ l'inscription des joueurs
 
 inscription2.php
+>sert ¨¤ l'inscription des joueurs
 
 pokemonEstProche.php
 >est appelé par affichageAlentours
