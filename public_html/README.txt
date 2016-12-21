@@ -13,14 +13,14 @@ capturePokemon.php
 >permet de tenter la capture du pokemon
 >enregistre le pokemon capturé dans la BDD
 
-connexion.php
+connexionBDD.php
 >automatise le pgconnect, la connexion à la BDD
 >inclut l'enregistrement de la position GPS
 
 controlerTriche.php
 >compare les infos du joueur avec le règlement (nb de pokestops visités,nb de pokemons capturés)
 
-deconnexion.php
+deconnexionBDD.php
 >deconnecte de la base de donnée
 >ferme la session
 
