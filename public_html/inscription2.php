@@ -15,7 +15,7 @@
 		</td>
 	</tr>
 	<tr>
-		<td onclick = "window.location = 'access.php'">
+		<td onclick = "window.location = 'accessJoueur.php'">
 		<center>Accéder</center>
 		</td>
 	</tr>
@@ -81,7 +81,11 @@
 	<tbody>
 	<?php
 	if($messageErr == ""){
-		include("connexionBDD.php");
+		if(!isset($engineLoaded))
+		{
+		$engineLoaded = true;
+		include('connexionBDD.php');
+		}
 		$vSql ="INSERT INTO joueur (nom, email, dateNaissance, genre, pays, coord_longitude, coord_lattitude) VALUES ('".
 			$nom."', '".
 			$email."', '".
@@ -93,7 +97,24 @@
 			.")";
 		//echo $vSql;
 		$vQuery=pg_query($vConn, $vSql);
-		echo "<tr><td>Inscription avec succés!</td></tr>";
+		if($vQuery){
+			echo "<tr><td>Inscription avec succés!</td></tr>";
+			echo "<tr><td><button onclick =\"window.location = 'accessJoueur.php'\" >Retourner</button></tr></td>";
+		}
+		else{
+			$Err = pg_ErrorMessage();
+			if(stripos($Err, "coord_lattitude") || stripos($Err, "coord_longitude")){
+				$messageErr = "Le GPS a été occupé par un autre joueur.";
+			}
+			else if(stripos($Err, "nom")){
+				$messageErr = "Le nom a été utilisé par un autre joueur.";
+			}
+			else if(stripos($Err, "email")){
+				$messageErr = "L'email a été utilisé par un autre joueur.";
+			}
+			echo "<tr><td>".$messageErr."</tr></td>";
+			echo "<tr><td><button onclick ='history.go(-1);' >Retourner</button></tr></td>";
+		}
 	}
 	else{
 		echo "<tr><td>".$messageErr."</tr></td>";
