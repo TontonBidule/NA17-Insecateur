@@ -23,13 +23,23 @@ DROP TYPE typeObjet;
 DROP TYPE typeSexe;
 DROP TYPE typePokeball;
 
-CREATE TYPE typeObjet AS ENUM ('achetable','trouvable','donne');
-CREATE TYPE typeSexe AS ENUM ('masculin','feminin');
-CREATE TYPE typePokeball AS ENUM ('artisanale','classique');
+CREATE OR REPLACE TYPE typeObjet AS ENUM ('achetable','trouvable','donne');
+/
+CREATE OR REPLACE TYPE typeSexe AS ENUM ('masculin','feminin');
+/
+CREATE OR REPLACE TYPE typePokeball AS ENUM ('artisanale','classique');
+/
+CREATE OR REPLACE TYPE coordonnees AS OBJECT(
+        latitude DECIMAL(5,3),
+        longitude DECIMAL(5,3)
+);
+/
+
+
 
 CREATE TABLE TypePokemon(
 	nom varchar PRIMARY KEY);
-	
+
 CREATE TABLE EspecePokemon(
 	nom varchar PRIMARY KEY,
 	numFamille integer,
@@ -44,7 +54,7 @@ CREATE TABLE EspecePokemon(
 	evolution varchar references EspecePokemon(nom),
 	CHECK(probaApparition>=0 AND probaApparition<=1 AND probaCapture>=0 AND probaCapture<=1)
 	);
-	
+
 CREATE TABLE Objet(
 	nom varchar PRIMARY KEY,
 	type typeObjet not null,
@@ -68,19 +78,16 @@ CREATE TABLE IndividuPokemon(
 CREATE TABLE Joueur(
 	nom varchar PRIMARY KEY,
 	email varchar unique,
+	coord coordonnees UNIQUE NOT NULL,
 	dateNaissance date not null,
 	genre typeSexe not null,
 	pays varchar not null,
 	experienceCumulee integer,
-	coord_lattitude float,
-	coord_longitude float,
 	nbPokestopsVisitesAjd integer,
 	nbPokemonsCapturesAjd integer,
 	derniereConnexion date,
 	pokeCoins integer,
-	argent float,
-	unique(coord_lattitude, coord_longitude)
-	
+	argent float
 );
 
 CREATE TABLE Pokeball(
@@ -91,9 +98,7 @@ CREATE TABLE Pokeball(
 CREATE TABLE PokemonSauvage(
 	nom varchar,
 	num integer,
-	coord_lattitude float,
-	coord_longitude float,
-	unique(coord_lattitude,coord_longitude),
+	coord coordonnees UNIQUE NOT NULL,
 	PRIMARY KEY(nom,num),
 	FOREIGN KEY(nom,num) REFERENCES IndividuPokemon(nom,num)
 );
@@ -114,17 +119,13 @@ CREATE TABLE PokemonCapture(
 CREATE TABLE Arene(
 	nom varchar PRIMARY KEY,
 	photo varchar unique,
-	coord_lattitude float,
-	coord_longitude float,
-	unique(coord_lattitude, coord_longitude)
+	coord coordonnees UNIQUE NOT NULL
 );
 
 CREATE TABLE Pokestop(
 	nom varchar PRIMARY KEY,
 	photo varchar unique,
-	coord_lattitude float,
-	coord_longitude float,
-	unique(coord_lattitude, coord_longitude)
+	coord coordonnees UNIQUE NOT NULL
 );
 
 CREATE TABLE Shop(
