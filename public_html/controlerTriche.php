@@ -5,6 +5,9 @@ if(!isset($engineLoaded))
 {
 	$engineLoaded = true;
 	include('connexion.php');
-	include('enregistrementGPS.php')
+	
 }
 ?>
+<html>
+header('Location: pokemonEstProche.php');
+</html>

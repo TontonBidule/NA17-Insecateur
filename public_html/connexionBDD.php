@@ -1,9 +1,9 @@
-
 <?php
 session_start();
-if(!isset($engineLoaded))
+if(!isset($_SESSION['engineLoaded']))
 {
-$engineLoaded = true;}
+	$_SESSION['engineLoaded']=true;
+	}
 
 
 include("identifiants.php");
@@ -16,6 +16,18 @@ if(!$vConn)
 	echo "Erreur de connexion a la base de donnees $bddDbname\n";
 	exit;
 }
-
-include("enregistrementGPS.php")
+else
+{
+	$vSql = "SELECT * FROM ParametresAdmin";
+	$vQuery = pg_query($vSql); 
+	$vResult = pg_fetch_array($vQuery)
+	echo $vQuery[1];
+	$_SESSION['distanceMaxPokestop']=$vResult[0];
+	$_SESSION['distanceMaxPokemon']=$vResult[1];
+	$_SESSION['maxCapture']=$vResult[2];
+	$_SESSION['maxPokestopsVisitables']=$vResult[3];
+	echo $_SESSION['maxCapture'];
+	echo "C'est bon jimmy on a les parametres admin !";
+}
+include("enregistrementGPS.html");
 ?>

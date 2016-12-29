@@ -23,38 +23,28 @@ DROP TYPE typeObjet;
 DROP TYPE typeSexe;
 DROP TYPE typePokeball;
 
-CREATE OR REPLACE TYPE typeObjet AS ENUM ('achetable','trouvable','donne');
-/
-CREATE OR REPLACE TYPE typeSexe AS ENUM ('masculin','feminin');
-/
-CREATE OR REPLACE TYPE typePokeball AS ENUM ('artisanale','classique');
-/
-CREATE OR REPLACE TYPE coordonnees AS OBJECT(
-        latitude DECIMAL(5,3),
-        longitude DECIMAL(5,3)
-);
-/
-
-
+CREATE TYPE typeObjet AS ENUM ('achetable','trouvable','donne');
+CREATE TYPE typeSexe AS ENUM ('masculin','feminin');
+CREATE TYPE typePokeball AS ENUM ('artisanale','classique');
 
 CREATE TABLE TypePokemon(
 	nom varchar PRIMARY KEY);
-
+	
 CREATE TABLE EspecePokemon(
 	nom varchar PRIMARY KEY,
 	numFamille integer,
 	probaApparition float,
 	probaCapture float,
-	baseAttaque integer,
-	baseDefense integer,
-	baseSante integer,
+	baseAttaque float,
+	baseDefense float,
+	baseSante float,
 	capaciteCombatBase float,
 	type1 varchar references TypePokemon(nom) NOT NULL,
 	type2 varchar references TypePokemon(nom),
 	evolution varchar references EspecePokemon(nom),
 	CHECK(probaApparition>=0 AND probaApparition<=1 AND probaCapture>=0 AND probaCapture<=1)
 	);
-
+	
 CREATE TABLE Objet(
 	nom varchar PRIMARY KEY,
 	type typeObjet not null,
@@ -65,10 +55,9 @@ CREATE TABLE Objet(
 CREATE TABLE IndividuPokemon(
 	nom varchar references EspecePokemon(nom),
 	num integer,
-	attaqueIV integer,
-	defenseIV integer,
-	santeIV integer,
-	santeAct integer,
+	attaqueIV float,
+	defenseIV float,
+	santeIV float,
 	capaciteCombat float,
 	objetPorte varchar references Objet(nom),
 	PRIMARY KEY(nom,num),
@@ -78,16 +67,19 @@ CREATE TABLE IndividuPokemon(
 CREATE TABLE Joueur(
 	nom varchar PRIMARY KEY,
 	email varchar unique,
-	coord coordonnees UNIQUE NOT NULL,
 	dateNaissance date not null,
 	genre typeSexe not null,
 	pays varchar not null,
 	experienceCumulee integer,
+	coord_lattitude float,
+	coord_longitude float,
 	nbPokestopsVisitesAjd integer,
 	nbPokemonsCapturesAjd integer,
 	derniereConnexion date,
 	pokeCoins integer,
-	argent float
+	argent float,
+	unique(coord_lattitude, coord_longitude)
+	
 );
 
 CREATE TABLE Pokeball(
@@ -98,7 +90,9 @@ CREATE TABLE Pokeball(
 CREATE TABLE PokemonSauvage(
 	nom varchar,
 	num integer,
-	coord coordonnees UNIQUE NOT NULL,
+	coord_lattitude float,
+	coord_longitude float,
+	unique(coord_lattitude,coord_longitude),
 	PRIMARY KEY(nom,num),
 	FOREIGN KEY(nom,num) REFERENCES IndividuPokemon(nom,num)
 );
@@ -119,13 +113,17 @@ CREATE TABLE PokemonCapture(
 CREATE TABLE Arene(
 	nom varchar PRIMARY KEY,
 	photo varchar unique,
-	coord coordonnees UNIQUE NOT NULL
+	coord_lattitude float,
+	coord_longitude float,
+	unique(coord_lattitude, coord_longitude)
 );
 
 CREATE TABLE Pokestop(
 	nom varchar PRIMARY KEY,
 	photo varchar unique,
-	coord coordonnees UNIQUE NOT NULL
+	coord_lattitude float,
+	coord_longitude float,
+	unique(coord_lattitude, coord_longitude)
 );
 
 CREATE TABLE Shop(
