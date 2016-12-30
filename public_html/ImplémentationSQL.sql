@@ -71,14 +71,14 @@ CREATE TABLE Joueur(
 	genre typeSexe not null,
 	pays varchar not null,
 	experienceCumulee integer,
-	coord_lattitude float,
+	coord_latitude float,
 	coord_longitude float,
 	nbPokestopsVisitesAjd integer,
 	nbPokemonsCapturesAjd integer,
 	derniereConnexion date,
 	pokeCoins integer,
 	argent float,
-	unique(coord_lattitude, coord_longitude)
+	unique(coord_latitude, coord_longitude)
 	
 );
 
@@ -90,9 +90,9 @@ CREATE TABLE Pokeball(
 CREATE TABLE PokemonSauvage(
 	nom varchar,
 	num integer,
-	coord_lattitude float,
+	coord_latitude float,
 	coord_longitude float,
-	unique(coord_lattitude,coord_longitude),
+	unique(coord_latitude,coord_longitude),
 	PRIMARY KEY(nom,num),
 	FOREIGN KEY(nom,num) REFERENCES IndividuPokemon(nom,num)
 );
@@ -113,17 +113,17 @@ CREATE TABLE PokemonCapture(
 CREATE TABLE Arene(
 	nom varchar PRIMARY KEY,
 	photo varchar unique,
-	coord_lattitude float,
+	coord_latitude float,
 	coord_longitude float,
-	unique(coord_lattitude, coord_longitude)
+	unique(coord_latitude, coord_longitude)
 );
 
 CREATE TABLE Pokestop(
 	nom varchar PRIMARY KEY,
 	photo varchar unique,
-	coord_lattitude float,
+	coord_latitude float,
 	coord_longitude float,
-	unique(coord_lattitude, coord_longitude)
+	unique(coord_latitude, coord_longitude)
 );
 
 CREATE TABLE Shop(
