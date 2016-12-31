@@ -19,7 +19,7 @@ if(!$vConn)
 else
 {
 	$vSql = "SELECT * FROM ParametresAdmin";
-	$vQuery = pg_query($vSql); 
+	$vQuery = pg_query($vConn,$vSql); 
 	$vResult = pg_fetch_array($vQuery)
 	echo $vQuery[1];
 	$_SESSION['distanceMaxPokestop']=$vResult[0];
