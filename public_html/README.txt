@@ -43,6 +43,9 @@ identifiants.php
 implémentationSQL.sql
 >code de création de la BDD
 
+function.sql
+>fonctions SQL de la BDD
+
 index.html
 >page d'accueil du site
 
