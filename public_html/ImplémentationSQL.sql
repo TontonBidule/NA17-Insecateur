@@ -10,7 +10,7 @@ DROP TABLE Pokestop CASCADE;
 DROP TABLE Shop CASCADE;
 DROP TABLE Objet CASCADE;
 DROP TABLE Potion CASCADE;
-DROP TABLE Pokemon CASCADE;
+DROP TABLE Pokeball CASCADE;
 DROP TABLE ParametresAdmin CASCADE;
 DROP TABLE CombattreDans CASCADE;
 DROP TABLE Connaitre CASCADE;
@@ -144,8 +144,10 @@ CREATE TABLE ParametresAdmin(
 	distanceMaxPokemon integer,
 	maxCapture integer,
 	maxPokestopsVisitables integer,
-	PRIMARY KEY(distanceMaxPokestop,distanceMaxPokemon,maxCapture,maxPokestopsVisiTABLEs)
+	valeurArgent float,
+	PRIMARY KEY(distanceMaxPokestop,distanceMaxPokemon,maxCapture,maxPokestopsVisitables)
 );
+
 
 CREATE TABLE CombattreDans(
 	arene varchar references Arene(nom),
