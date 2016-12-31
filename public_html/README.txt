@@ -69,3 +69,7 @@ rechargerCompte.php
 recupererObjets.php
 >appelé via affichageAlentours.php
 >permet de prendre les objets d'un pokestop
+
+administration.php
+>permet de créer des pokémons, des arènes, shops, de modifier les pokémons et de visualiser le profil de chaque utilisateur
+>(sera sous divisé en différentes pages php, deviendra surement une page .html)

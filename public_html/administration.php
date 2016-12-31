@@ -1,6 +1,10 @@
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Panneau d'Administration</title>
+	<meta http-equiv="Content-type"contente="text/html; charset=UTF-8"/>
+</head>
 <body>
-
+ 
 <div id="container" style="width:900px">
  
 <div id="header" style="background-color:#fafad2;">
@@ -10,12 +14,7 @@
 <div id="menu" style="background-color:#778899;height:550px;width:150px;float:left;">
 <table>
 	<tr>
-		<td>
-		<center>Menu</center>
-		</td>
-	</tr>
-	<tr>
-		<td onclick = "window.location = 'access.php'">
+		<td onclick = "window.location = 'accessJoueur.php'">
 		<center>Accéder</center>
 		</td>
 	</tr>
@@ -33,25 +32,8 @@
 </div>
  
 <div id="content" style="background-color:#EEEEEE;height:550px;width:750px;float:left;">
-<center><div><h3>Accéder avec vos nom et email</h3></div></center>
-<center><div>
-<form action = "access2.php" method = "POST">
-<table>
-	<tr>
-		<td>Nom: </td>
-		<td><input type = "text" name = "nom"></td>
-	</tr>
-	<tr>
-		<td>Email: </td>
-		<td><input type = "text" name = "email"></td>
-	</tr>
-	
-	</table>
-
-<br>
-<input type = "submit" value = "Accéder" >
-</form>
-</div></center>
+<center><div><h3>Bienvenue dans le monde de Pokémon!</h3></div></center>
+<center><div><img src="PokemonIndex.jpg" width="600"/></div></center>
 </div>
  
 <div id="footer" style="background-color:#fafad2;clear:both;text-align:center;">

@@ -25,7 +25,7 @@
 		</td>
 	</tr>
 	<tr>
-		<td>
+		<td onclick = "windows.location = 'administration.php'">
 		<center>Administration</center>
 		</td>
 	</tr>
