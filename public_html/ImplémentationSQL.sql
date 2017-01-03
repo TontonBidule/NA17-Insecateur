@@ -196,3 +196,40 @@ CREATE TABLE EffectuerTransactionAvec(
 	PRIMARY KEY(shop,joueur)
 );
 
+CREATE OR REPLACE FUNCTION PokemonPotentiels 
+(pseudo text,
+lim float)
+RETURNS TABLE(nom text,num int) AS
+$$
+SELECT PokemonSauvage.nom,PokemonSauvage.num
+FROM Joueur, PokemonSauvage 
+WHERE Joueur.nom=pseudo AND(SQRT(POWER(PokemonSauvage.coord_lattitude::float-Joueur.coord_lattitude::float,2)::float+ pow(PokemonSauvage.coord_longitude::float-Joueur.coord_longitude::float,0.5)::float)::float<=lim)$$ LANGUAGE SQL;
+
+CREATE OR REPLACE FUNCTION PokestopPotentiels 
+(pseudo text,
+lim float)
+RETURNS TABLE(nom text) AS
+$$
+SELECT Pokestop.nom
+FROM Joueur, Pokestop
+WHERE Joueur.nom=pseudo AND(SQRT(POWER(Pokestop.coord_lattitude::float-Joueur.coord_lattitude::float,2)::float+ pow(Pokestop.coord_longitude::float-Joueur.coord_longitude::float,0.5)::float)::float<=lim)$$ LANGUAGE SQL;
+
+CREATE VIEW PokestopPotentiels AS
+SELECT Joueur.nom AS pseudo,Pokestop.nom
+FROM Joueur INNER JOIN Pokestop ON (Joueur.coord_lattitude=Pokestop.coord_lattitude AND Joueur.coord_longitude=Pokestop.coord_longitude);
+
+INSERT INTO TypePokemon VALUES ('feu');
+INSERT INTO TypePokemon VALUES ('eau');
+INSERT INTO EspecePokemon VALUES ('Dracaufeu',1,0.2,0.2,0.2,0.2,0.2,0.2,'feu',NULL,NULL);
+INSERT INTO EspecePokemon VALUES ('Reptincel',1,0.2,0.2,0.2,0.2,0.2,0.2,'feu',NULL,'Dracaufeu');
+INSERT INTO EspecePokemon VALUES ('Salameche',1,0.2,0.2,0.2,0.2,0.2,0.2,'feu',NULL,'Reptincel');
+INSERT INTO EspecePokemon VALUES ('Tortank',1,0.2,0.2,0.2,0.2,0.2,0.2,'eau',NULL,NULL);
+INSERT INTO EspecePokemon VALUES ('Carabaffe',1,0.2,0.2,0.2,0.2,0.2,0.2,'eau',NULL,'Tortank');
+INSERT INTO EspecePokemon VALUES ('Carapuce',1,0.2,0.2,0.2,0.2,0.2,0.2,'eau',NULL,'Carabaffe');
+INSERT INTO IndividuPokemon VALUES ('Carapuce',1,0,0,0,0,NULL);
+INSERT INTO IndividuPokemon VALUES ('Salameche',2,0,0,0,0,NULL);
+INSERT INTO IndividuPokemon VALUES ('Dracaufeu',3,0,0,0,0,NULL);
+INSERT INTO PokemonSauvage VALUES ('Carapuce',1,15,20);
+INSERT INTO PokemonSauvage VALUES ('Salameche',2,20,40);
+INSERT INTO PokemonSauvage VALUES ('Dracaufeu',3,5,10);
+
