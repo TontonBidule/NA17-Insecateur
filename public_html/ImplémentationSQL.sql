@@ -203,7 +203,7 @@ RETURNS TABLE(nom text,num int) AS
 $$
 SELECT PokemonSauvage.nom,PokemonSauvage.num
 FROM Joueur, PokemonSauvage 
-WHERE Joueur.nom=pseudo AND(SQRT(POWER(PokemonSauvage.coord_lattitude::float-Joueur.coord_lattitude::float,2)::float+ pow(PokemonSauvage.coord_longitude::float-Joueur.coord_longitude::float,0.5)::float)::float<=lim)$$ LANGUAGE SQL;
+WHERE Joueur.nom=pseudo AND(SQRT(POWER(PokemonSauvage.coord_latitude::float-Joueur.coord_latitude::float,2)::float+ pow(PokemonSauvage.coord_longitude::float-Joueur.coord_longitude::float,2)::float)::float<=lim)$$ LANGUAGE SQL;
 
 CREATE OR REPLACE FUNCTION PokestopPotentiels 
 (pseudo text,
@@ -212,11 +212,11 @@ RETURNS TABLE(nom text) AS
 $$
 SELECT Pokestop.nom
 FROM Joueur, Pokestop
-WHERE Joueur.nom=pseudo AND(SQRT(POWER(Pokestop.coord_lattitude::float-Joueur.coord_lattitude::float,2)::float+ pow(Pokestop.coord_longitude::float-Joueur.coord_longitude::float,0.5)::float)::float<=lim)$$ LANGUAGE SQL;
+WHERE Joueur.nom=pseudo AND(SQRT(POWER(Pokestop.coord_latitude::float-Joueur.coord_latitude::float,2)::float+ pow(Pokestop.coord_longitude::float-Joueur.coord_longitude::float,2)::float)::float<=lim)$$ LANGUAGE SQL;
 
 CREATE VIEW PokestopPotentiels AS
 SELECT Joueur.nom AS pseudo,Pokestop.nom
-FROM Joueur INNER JOIN Pokestop ON (Joueur.coord_lattitude=Pokestop.coord_lattitude AND Joueur.coord_longitude=Pokestop.coord_longitude);
+FROM Joueur INNER JOIN Pokestop ON (Joueur.coord_latitude=Pokestop.coord_lattitude AND Joueur.coord_longitude=Pokestop.coord_longitude);
 
 INSERT INTO TypePokemon VALUES ('feu');
 INSERT INTO TypePokemon VALUES ('eau');
