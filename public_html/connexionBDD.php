@@ -17,5 +17,5 @@ else
 	//echo $vResult['distancemaxpokestop'];
 	//echo "C'est bon jimmy on a les parametres admin !";
 }
-include("enregistrementGPS.html");
+
 ?>

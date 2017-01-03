@@ -214,9 +214,6 @@ SELECT Pokestop.nom
 FROM Joueur, Pokestop
 WHERE Joueur.nom=pseudo AND(SQRT(POWER(Pokestop.coord_latitude::float-Joueur.coord_latitude::float,2)::float+ pow(Pokestop.coord_longitude::float-Joueur.coord_longitude::float,2)::float)::float<=lim)$$ LANGUAGE SQL;
 
-CREATE VIEW PokestopPotentiels AS
-SELECT Joueur.nom AS pseudo,Pokestop.nom
-FROM Joueur INNER JOIN Pokestop ON (Joueur.coord_latitude=Pokestop.coord_lattitude AND Joueur.coord_longitude=Pokestop.coord_longitude);
 
 INSERT INTO TypePokemon VALUES ('feu');
 INSERT INTO TypePokemon VALUES ('eau');
@@ -232,4 +229,6 @@ INSERT INTO IndividuPokemon VALUES ('Dracaufeu',3,0,0,0,0,NULL);
 INSERT INTO PokemonSauvage VALUES ('Carapuce',1,15,20);
 INSERT INTO PokemonSauvage VALUES ('Salameche',2,20,40);
 INSERT INTO PokemonSauvage VALUES ('Dracaufeu',3,5,10);
+INSERT INTO Pokestop VALUES ('Boulangerie',NULL,12,10);
+INSERT INTO Pokestop VALUES ('Piscine',NULL,20,5);
 

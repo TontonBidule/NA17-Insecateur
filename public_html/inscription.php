@@ -75,7 +75,7 @@
 	</tr>
 	<tr>
 		<td>Latitude * :</td>
-		<td><input type = "text" name = "coord_lattitude"></td>
+		<td><input type = "text" name = "coord_latitude"></td>
 	</tr>
 	<tr>
 		<td>(Les champs avec * sont obligatoires.)</td>
