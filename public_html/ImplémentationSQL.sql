@@ -167,7 +167,7 @@ CREATE OR REPLACE TABLE EffectuerTransactionAvec(
 	PRIMARY KEY(shop,joueur)
 );
 
-CREATE OR REPLACE FUNCTION PokemonPotentiels (pseudo text,lim float)RETURNS TABLE(nom text,num int) AS $$
+CREATE OR REPLACE FUNCTION PokemonPotentiels (pseudo text,lim float)RETURNS TABLE(nom VARCHAR,num int) AS $$
 	SELECT PokemonSauvage.nom,PokemonSauvage.num
 	FROM Joueur, PokemonSauvage 
 	WHERE Joueur.nom=pseudo AND(SQRT(POWER(PokemonSauvage.coord_latitude::float-Joueur.coord_latitude::float,2)::float+ pow(PokemonSauvage.coord_longitude::float-Joueur.coord_longitude::float,2)::float)::float<=lim)
@@ -214,6 +214,7 @@ CREATE OR REPLACE FUNCTION prixArgentReel(nomObjet VARCHAR) RETURNS FLOAT AS $$
 	WHERE o.nom=nomObjet;
 $$ LANGUAGE SQL;
 
+INSERT INTO ParametresAdmin VALUES('10','10','10','10','10');
 INSERT INTO TypePokemon VALUES ('feu');
 INSERT INTO TypePokemon VALUES ('eau');
 INSERT INTO EspecePokemon VALUES ('Dracaufeu',1,0.2,0.2,0.2,0.2,0.2,0.2,'feu',NULL,NULL);
