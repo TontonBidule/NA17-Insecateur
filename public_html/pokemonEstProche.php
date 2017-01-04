@@ -5,7 +5,7 @@ include('connexionBDD.php');
 
 $pseudo="Arobaz";
 $vSql1 = "SELECT * FROM ParametresAdmin";
-$vQuery1 = pg_query($vSql1); 
+$vQuery1 = pg_query($vConn,$vSql1); 
 $vResult1 = pg_fetch_array($vQuery1);
 $param=$vResult1['distancemaxpokemon'];
 $vSql2 = "SELECT * FROM PokemonPotentiels('".$pseudo."',$param);";
@@ -18,16 +18,20 @@ $row=pg_fetch_array($vQuery2);
 	}
 else
 	{
-	echo '<form action="recolte.php" method=POST>';
+	echo '<form action="capturePokemon.php" method=POST>';
 	do
 		{
-		echo "<input type='checkbox' name=".$row["num"]." value=".$row["num"].">".$row["nom"];
+		$chaine= $row["nom"].':'.$row["num"];
+		echo "<input type='checkbox' name='pokemon[]' value='$chaine'>".$row["nom"];
 		echo "<br>";// on affiche l'option.
 		}
 	while($row = pg_fetch_array($vQuery2));
 	echo '<input type="submit" value="Submit">';
 	echo '</form>';
+	echo $chaine;
 	echo '</html>';
+	
 	}
+
 ?>
   

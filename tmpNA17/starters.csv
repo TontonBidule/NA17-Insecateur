@@ -1,0 +1,9 @@
+Bulbizarre;1;42,12968616;Plante;Poison;0;0;0;0;0,5;Herbizarre
+Herbizarre;1;2,56441568;Plante;Poison;0;0;0;0;0,5;Florizarre
+Florizarre;1;1,037977775;Plante;Poison;0;0;0;0;0,5;NULL
+Salameche;2;15,44755159;Feu;NULL;0;0;0;0;0,5;Reptincel
+Reptincel;2;0,732690194;Feu;NULL;0;0;0;0;0,5;Dracaufeu
+Dracaufeu;2;0,1892783;Feu;Vol;0;0;0;0;0,5;NULL
+Carapuce;3;35,41335938;Eau;NULL;0;0;0;0;0,5;Carabaffe
+Carabaffe;3;2,07595555;Eau;NULL;0;0;0;0;0,5;Tortank
+Tortank;3;0,409085358;Eau;NULL;0;0;0;0;0,5;NULL
