@@ -15,7 +15,7 @@
 		</td>
 	</tr>
 	<tr>
-		<td onclick = "window.location = 'access.php'">
+		<td onclick = "window.location = 'accessJoueur.php'">
 		<center>Accéder</center>
 		</td>
 	</tr>
@@ -38,11 +38,11 @@
 <form action = "access2.php" method = "POST">
 <table>
 	<tr>
-		<td>Nom: </td>
+		<td>*Nom: </td>
 		<td><input type = "text" name = "nom"></td>
 	</tr>
 	<tr>
-		<td>Email: </td>
+		<td>*Email: </td>
 		<td><input type = "text" name = "email"></td>
 	</tr>
 	
