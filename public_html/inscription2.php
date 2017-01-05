@@ -60,8 +60,8 @@
 	if(!empty($_POST["coord_longitude"])){
 		$clo= $_POST["coord_longitude"];
 	}
-	if(!empty($_POST["coord_lattitude"])){
-		$cla= $_POST["coord_lattitude"];
+	if(!empty($_POST["coord_latitude"])){
+		$cla= $_POST["coord_latitude"];
 	}
 	
 	if(empty($nom) || empty($email)|| empty($clo)|| empty($cla) || empty($dateNaissance) || empty($genre)){
@@ -86,7 +86,7 @@
 		$engineLoaded = true;
 		include('connexionBDD.php');
 		}
-		$vSql ="INSERT INTO joueur (nom, email, dateNaissance, genre, pays, coord_longitude, coord_lattitude) VALUES ('".
+		$vSql ="INSERT INTO joueur (nom, email, dateNaissance, genre, pays, coord_longitude, coord_latitude) VALUES ('".
 			$nom."', '".
 			$email."', '".
 			$dateNaissance."', '".
@@ -103,7 +103,7 @@
 		}
 		else{
 			$Err = pg_ErrorMessage();
-			if(stripos($Err, "coord_lattitude") || stripos($Err, "coord_longitude")){
+			if(stripos($Err, "coord_latitude") || stripos($Err, "coord_longitude")){
 				$messageErr = "Le GPS a été occupé par un autre joueur.";
 			}
 			else if(stripos($Err, "nom")){
