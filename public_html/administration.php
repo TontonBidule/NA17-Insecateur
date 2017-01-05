@@ -42,6 +42,7 @@
 		else if($_GET['codeRetour']==0){echo "Opération réussi avec succès";}
 		else if($_GET['codeRetour']==2){echo "Une erreur c'est produite";}
 		else if($_GET['codeRetour']==3){echo "Evolution introuvable";}
+		else if($_GET['codeRetour']==4){echo ;}
 		echo "</center></div>";
 	}
 ?>
