@@ -35,6 +35,16 @@
 <center><div><img src="PokemonIndex.jpg" width="600"/></div></center>
 </div>
 <div style="background-color:#fafad2;"><center><b>Les champs avec "<font color="red">★</font>" sont obligatoires  </b></center></div>	
+<?php
+	if(isset($_GET['codeRetour'])){	
+		echo "<div style='background-color:#FF0000;'><center>";
+		if($_GET['codeRetour']==1){echo "Merci de remplir tous les champs obligatoires";}
+		else if($_GET['codeRetour']==0){echo "Opération réussi avec succès";}
+		else if($_GET['codeRetour']==2){echo "Une erreur c'est produite";}
+		else if($_GET['codeRetour']==3){echo "Evolution introuvable";}
+		echo "</center></div>";
+	}
+?>
 <div id="form" style="background-color:#778899;">
 	<table border="1"><tr><td>
 	<form method="POST" Action="creationPokemon.php">
@@ -47,12 +57,12 @@
 		<p>Base Sante:<input type="number" min="1" max="10000" step="1" name="baseSante"/></p>
 		<p>Capacité de Combat:<input type="number" min="1" max="10000" step="1" name="pc"/></p>
 		<p><font color="red">★</font>Type de Pokémon:<input type="text" name="type1"/></p>
-		<p>Type de Pokémon:<input type="text" name="type2"/></p>
+		<p>Deuxième type de Pokémon:<input type="text" name="type2"/></p>
 		<p>Evolution de (nom):<input type="text" name="nomEvolDe"/></p>
 		<input type="submit" value="Créer"/>
 	</form></td><td>
 	<form method="POST" Action="creationArene.php">
-		<p><font color="red">★</font>nom Arène:<input/></p>
+		<p><font color="red">★</font>nom Arène:<input type="text" name="nomAre"/></p>
 		<p>Photo (insérer une url):<input type="url" name="photo"/></p>
 		<p>Latitude:<input type="number" name="latitude" step="any"/></p>
 		<p>Longitude:<input type="number" name="longitude" step="any"/></p>
@@ -80,6 +90,7 @@
 		<p>Capacité de Combat:<input type="number" min="1" max="10000" step="1" name="pc"/></p>
 		<p>Type de Pokémon:<input type="text" name="type1"/></p>
 		<p>Deuxième type de Pokémon:<input type="text" name="type2"/></p>
+		<p>Evolution (nom):<input type="text" name="evolution"/></p>
 		<input type="submit" value="Modifier"/>
 	</form></td><td>
 	<form method="GET" Action="voirJoueur.php">
