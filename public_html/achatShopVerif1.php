@@ -3,9 +3,9 @@
 	
 	
 	$pseudo = "Arobaz";
-	$vSqlExistanceObjet = "SELECT o.nom, prixargentreel(o.nom), s.pays 
+	$vSqlExistanceObjet = "SELECT prixargentreel(o.nom), s.pays pays, j.argent
 			FROM Objet o, Vendre v, joueur j, shop s 
-			WHERE o.type='achetable' AND v.objet = o.nom AND v.shop = s.pays AND j.pays = s.pays;"; 
+			WHERE o.type='achetable' AND o.nom = '$_POST[nomObjet]' AND  v.objet = o.nom AND v.shop = s.pays AND j.pays = s.pays;"; 
 	$vQuery = pg_query($vConn, $vSqlExistanceObjet);
 	
 	if(! ($vResult = pg_fetch_array($vQuery))){
@@ -13,30 +13,24 @@
 		include('achatshop.php');
 		exit();	
 	}
+	$prixpotion =  $vResult["prixargentreel"] * $_POST['nombre'];
 	
-	echo $vResult["prixargentreel"] ;
-	$prixpotion =  $vResult["prixargentreel"] ;
-	$vSqlArgentJoueur = "SELECT nom, argent FROM Joueur  WHERE nom ='$pseudo';";
 	
-	$vQuery2 = pg_query($vConn, $vSqlArgentJoueur);
-	$vResult2 = pg_fetch_array($vQuery2);
-	
-	echo "argent joueur : $vResult2[argent]";
-	echo "prix potion $prixpotion";
-	if($vResult2['argent'] < $prixpotion){
-		echo 'erreur, sale pauvre';
+	if($vResult['argent'] < $prixpotion){
+		echo 'erreur, tu es peut etre un tres bon dresseur, mais tu n as pas assez d argent';
 		include('achatshop.php');
 		exit();		
 	}
-	echo 'gg le riche';
-	echo "pays : $vResult[pays]";
-	echo "pseudo : $pseudo";
-	echo "date : NOW()";
-	echo "prix potion $prixpotion";	
+	echo 'la transaction a bien ete effectuee o grand dresseur';
+	
+	
+	
 	$vSqlModifDonnees = "INSERT INTO effectuertransactionavec VALUES ('$vResult[pays]', '$pseudo', NOW(), $prixpotion);";
 	pg_query($vConn, $vSqlModifDonnees);
 	$vSqlModifDonnees = "UPDATE joueur SET argent = argent - $prixpotion WHERE nom='$pseudo'";
 	pg_query($vConn, $vSqlModifDonnees);
+	
+	include('achatshop.php');
 	
 
 
