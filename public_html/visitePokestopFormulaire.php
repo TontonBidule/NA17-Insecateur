@@ -23,7 +23,7 @@ $row=pg_fetch_array($vQuery2);
 else
 	{
 		echo "<body onload='pokestops.reset();'>";
-	echo '<form action="recupererObjets.php" id=pokestops method=POST>';
+	echo '<form action="visitePokestopResultat.php" id=pokestops method=POST>';
 	do
 		{
 		$nom=$row["nom"];

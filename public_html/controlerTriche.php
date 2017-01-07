@@ -9,5 +9,5 @@ if(!isset($engineLoaded))
 }
 ?>
 <html>
-header('Location: pokemonEstProche.php');
+header('Location: capturePokemonFormulaire.php');
 </html>

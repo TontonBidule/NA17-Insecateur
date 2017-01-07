@@ -4,13 +4,13 @@
 	echo "-CAPTURE DES POKEMONS AUX ALENTOURS -";
 	echo"<br>";
 	echo"<br>";
-	include("pokemonEstProche.php");
+	include("capturePokemonFormulaire.php");
 	echo"<br>";
 	echo"<br>";
 	echo "-VISITE DES POKESTOPS AUX ALENTOURS -";
 	echo"<br>";
 	echo"<br>";
-	include("pokestopEstProche.php");
+	include("visitePokestopFormulaire.php");
 	echo"<br>";
 	echo"<br>";
 	echo "-VISITE DES ARENES AUX ALENTOURS -";

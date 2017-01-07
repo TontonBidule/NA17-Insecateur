@@ -8,7 +8,7 @@ affichageAlentours.php
 
 ajouterJoueur.php
 
-capturePokemon.php
+capturePokemonResultat.php
 >lié au formulaire de AffichageAlentours
 >permet de tenter la capture du pokemon
 >enregistre le pokemon capturé dans la BDD
@@ -58,18 +58,18 @@ inscription.php
 inscription2.php
 >sert ¨¤ l'inscription des joueurs
 
-pokemonEstProche.php
+capturePokemonFormulaire.php
 >est appelé par affichageAlentours
 >à fusionner peut etre
 
-pokestopEstProche.php
+visitePokestopFormulaire.php
 >est appelé par affichageAlentours
 >à fusionner peut etre
 
 rechargerCompte.php
 >appelé via index.html
 
-recupererObjets.php
+visitePokestopResultat.php
 >appelé via affichageAlentours.php
 >permet de prendre les objets d'un pokestop
 

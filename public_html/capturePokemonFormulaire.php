@@ -19,7 +19,7 @@ $row=pg_fetch_array($vQuery2);
 else
 	{
 	echo "<body onload='pokemons.reset();'>";
-	echo '<form action="capturePokemon.php" id=pokemons method=POST>';
+	echo '<form action="capturePokemonResultat.php" id=pokemons method=POST>';
 	do
 		{
 		$chaine= $row["nom"].':'.$row["num"];
