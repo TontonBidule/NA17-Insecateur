@@ -1,8 +1,3 @@
-
-
-
-
-
 CREATE OR REPLACE TYPE typeObjet AS ENUM ('achetable','trouvable','donne');
 CREATE OR REPLACE TYPE typeSexe AS ENUM ('masculin','feminin');
 CREATE OR REPLACE TYPE typePokeball AS ENUM ('artisanale','classique');
@@ -10,7 +5,7 @@ CREATE OR REPLACE TYPE typePokeball AS ENUM ('artisanale','classique');
 CREATE OR REPLACE TABLE TypePokemon(
 	nom varchar PRIMARY KEY);
 	
-CREATE TABLE EspecePokemon(
+CREATE OR REPLACE TABLE EspecePokemon(
 	nom varchar PRIMARY KEY,
 	numFamille integer,
 	probaApparition float,
@@ -31,6 +26,10 @@ CREATE OR REPLACE TABLE Objet(
 	description varchar,
 	prixVente integer
 );
+
+
+
+
 
 CREATE OR REPLACE TABLE IndividuPokemon(
 	nom varchar references EspecePokemon(nom),
@@ -94,6 +93,8 @@ CREATE OR REPLACE TABLE Arene(
 	unique(coord_latitude, coord_longitude)
 );
 
+
+
 CREATE OR REPLACE TABLE Pokestop(
 	nom varchar PRIMARY KEY,
 	photo varchar unique,
@@ -115,6 +116,7 @@ CREATE OR REPLACE TABLE Potion(
 
 
 
+
 CREATE OR REPLACE TABLE ParametresAdmin(
 	distanceMaxPokestop integer,
 	distanceMaxPokemon integer,
@@ -123,6 +125,8 @@ CREATE OR REPLACE TABLE ParametresAdmin(
 	valeurArgent float,
 	PRIMARY KEY(distanceMaxPokestop,distanceMaxPokemon,maxCapture,maxPokestopsVisitables)
 );
+
+INSERT INTO ParametresAdmin VALUES(1,0,0,0,0);
 
 
 CREATE OR REPLACE TABLE CombattreDans(
@@ -140,7 +144,7 @@ CREATE OR REPLACE TABLE  Connaitre(
 CREATE OR REPLACE TABLE  Visiter(
 	joueur varchar references Joueur(nom),
 	pokestop varchar references Pokestop(nom),
-	derniereVisite timestamp,
+	derniereVisite date,
 	PRIMARY KEY(joueur,pokestop)
 );
 
@@ -169,7 +173,7 @@ CREATE OR REPLACE TABLE EffectuerTransactionAvec(
 	joueur varchar references Joueur(nom),
 	date date,
 	argentDepense float,
-	PRIMARY KEY(shop,joueur)
+	PRIMARY KEY(shop,joueur, date)
 );
 
 CREATE OR REPLACE FUNCTION PokemonPotentiels (pseudo text,lim float)RETURNS TABLE(nom VARCHAR,num int) AS $$
@@ -178,14 +182,14 @@ CREATE OR REPLACE FUNCTION PokemonPotentiels (pseudo text,lim float)RETURNS TABL
 	WHERE Joueur.nom=pseudo AND(SQRT(POWER(PokemonSauvage.coord_latitude::float-Joueur.coord_latitude::float,2)::float+ pow(PokemonSauvage.coord_longitude::float-Joueur.coord_longitude::float,2)::float)::float<=lim)
 $$ LANGUAGE SQL;
 
+
+
+
+
 CREATE OR REPLACE FUNCTION PokestopPotentiels (pseudo text,lim float)RETURNS TABLE(nom text) AS $$
-	SELECT pokestop
-	FROM Visiter
-	INNER JOIN 
-	(SELECT Pokestop.nom
+	SELECT Pokestop.nom
 	FROM Joueur, Pokestop
-	WHERE Joueur.nom=pseudo AND(SQRT(POWER(Pokestop.coord_latitude::float-Joueur.coord_latitude::float,2)::float+ pow(Pokestop.coord_longitude::float-Joueur.coord_longitude::float,2)::float)::float<=lim)) AS PokestopsAlentours ON Visiter.pokestop=PokestopsAlentours.nom
-	WHERE (CURRENT_TIMESTAMP-Visiter.derniereVisite>interval '1 minutes');
+	WHERE Joueur.nom=pseudo AND(SQRT(POWER(Pokestop.coord_latitude::float-Joueur.coord_latitude::float,2)::float+ pow(Pokestop.coord_longitude::float-Joueur.coord_longitude::float,2)::float)::float<=lim)
 $$ LANGUAGE SQL;
 
 CREATE OR REPLACE FUNCTION ArenesPotentielles (pseudo text,lim float)RETURNS TABLE(nom text) AS $$
@@ -193,23 +197,6 @@ CREATE OR REPLACE FUNCTION ArenesPotentielles (pseudo text,lim float)RETURNS TAB
 	FROM Joueur, Arene
 	WHERE Joueur.nom=pseudo AND(SQRT(POWER(arene.coord_latitude::float-joueur.coord_latitude::float,2)::float+ pow(Arene.coord_longitude::float-Joueur.coord_longitude::float,2)::float)::float<=lim)
 $$ LANGUAGE SQL;
-
-CREATE OR REPLACE FUNCTION PokestopAttente (pseudo text,lim float)RETURNS TABLE(nom text, attente interval) AS $$
-	SELECT pokestop,date_trunc('second', '00:01:00'::time-(CURRENT_TIMESTAMP-derniereVisite)::time)
-	FROM Visiter
-	INNER JOIN 
-	(SELECT Pokestop.nom
-	FROM Joueur, Pokestop
-	WHERE Joueur.nom=pseudo AND(SQRT(POWER(Pokestop.coord_latitude::float-Joueur.coord_latitude::float,2)::float+ pow(Pokestop.coord_longitude::float-Joueur.coord_longitude::float,2)::float)::float<=lim)) AS PokestopsAlentours ON Visiter.pokestop=PokestopsAlentours.nom
-	WHERE (CURRENT_TIMESTAMP-Visiter.derniereVisite<interval '1 minute');
-$$ LANGUAGE SQL;
-
-CREATE OR REPLACE FUNCTION ShopPotentiel (pseudo text)RETURNS TABLE(pays VARCHAR) AS $$
-	
-	SELECT Shop.pays FROM Shop INNER JOIN Joueur ON Joueur.pays=Shop.pays WHERE Joueur.nom='Arobaz'
-	; $$ LANGUAGE SQL;
-
-
 
 
 CREATE OR REPLACE FUNCTION age(IN nomJoueur VARCHAR) RETURNS DOUBLE PRECISION AS $$
@@ -223,21 +210,6 @@ CREATE OR REPLACE FUNCTION enregistrerLocalisation(IN latitude INTEGER, IN longi
 	SET coord_latitude=latitude, coord_longitude=longitude
 	WHERE j.nom=nomJoueur'
 LANGUAGE SQL;
-
-CREATE PROCEDURE ajoutStock(bool integer,pseudo text, objet text, quantite integer) 
-IF bool==0
-BEGIN
-	INSERT INTO Posseder VALUES('pseudo','objet',quantite)
-END
-ELSE
-BEGIN
-	UPDATE Posseder
-	SET Posseder.quantite=Posseder.quantite+quantite
-	WHERE Posseder.joueur=$pseudo AND Posseder.objet=$objet
-END;
-
-
-
 
 CREATE OR REPLACE FUNCTION puissance(numPokemon INTEGER, nomPokemon VARCHAR) RETURNs FLOAT AS $$
 	SELECT ((|/(baseAttaque + attaqueIV))*(|/(baseDefense+defenseIV))*(|/(baseSante+santeIV))) AS puissance 
@@ -264,36 +236,30 @@ $$ LANGUAGE SQL;
 INSERT INTO ParametresAdmin VALUES('10','10','10','10','10');
 INSERT INTO TypePokemon VALUES ('feu');
 INSERT INTO TypePokemon VALUES ('eau');
-INSERT INTO TypePokemon VALUES ('plante');
-INSERT INTO EspecePokemon VALUES ('Dracaufeu',1,0.0104,0.5,0.2,0.2,0.2,0.2,'feu',NULL,NULL);
-INSERT INTO EspecePokemon VALUES ('Reptincel',1,0.0256,0.5,0.2,0.2,0.2,0.2,'feu',NULL,'Dracaufeu');
-INSERT INTO EspecePokemon VALUES ('Salameche',1,0.4213,0.5,0.2,0.2,0.2,0.2,'feu',NULL,'Reptincel');
-INSERT INTO EspecePokemon VALUES ('Tortank',2,0.0019,0.5,0.2,0.2,0.2,0.2,'eau',NULL,NULL);
-INSERT INTO EspecePokemon VALUES ('Carabaffe',2,0.0073,0.5,0.2,0.2,0.2,0.2,'eau',NULL,'Tortank');
-INSERT INTO EspecePokemon VALUES ('Carapuce',2,0.1545,0.5,0.2,0.2,0.2,0.2,'eau',NULL,'Carabaffe');
-INSERT INTO EspecePokemon VALUES ('Florizarre',3,0.0041,0.5,0.2,0.2,0.2,0.2,'plante',NULL,NULL);
-INSERT INTO EspecePokemon VALUES ('Herbizarre',3,0.0208,0.5,0.2,0.2,0.2,0.2,'plante',NULL,'Florizarre');
-INSERT INTO EspecePokemon VALUES ('Bulbizarre',3,0.3541,0.5,0.2,0.2,0.2,0.2,'plante',NULL,'Herbizarre');
+INSERT INTO EspecePokemon VALUES ('Dracaufeu',1,0.2,0.2,0.2,0.2,0.2,0.2,'feu',NULL,NULL);
+INSERT INTO EspecePokemon VALUES ('Reptincel',1,0.2,0.2,0.2,0.2,0.2,0.2,'feu',NULL,'Dracaufeu');
+INSERT INTO EspecePokemon VALUES ('Salameche',1,0.2,0.2,0.2,0.2,0.2,0.2,'feu',NULL,'Reptincel');
+INSERT INTO EspecePokemon VALUES ('Tortank',1,0.2,0.2,0.2,0.2,0.2,0.2,'eau',NULL,NULL);
+INSERT INTO EspecePokemon VALUES ('Carabaffe',1,0.2,0.2,0.2,0.2,0.2,0.2,'eau',NULL,'Tortank');
+INSERT INTO EspecePokemon VALUES ('Carapuce',1,0.2,0.2,0.2,0.2,0.2,0.2,'eau',NULL,'Carabaffe');
 INSERT INTO IndividuPokemon VALUES ('Carapuce',1,0,0,0,0,NULL);
 INSERT INTO IndividuPokemon VALUES ('Salameche',2,0,0,0,0,NULL);
 INSERT INTO IndividuPokemon VALUES ('Dracaufeu',3,0,0,0,0,NULL);
-INSERT INTO IndividuPokemon VALUES ('Herbizarre',4,0,0,0,0,NULL);
 INSERT INTO PokemonSauvage VALUES ('Carapuce',1,15,20);
 INSERT INTO PokemonSauvage VALUES ('Salameche',2,20,40);
 INSERT INTO PokemonSauvage VALUES ('Dracaufeu',3,5,10);
-INSERT INTO PokemonSauvage VALUES ('Herbizarre',4,10,10);
 INSERT INTO Pokestop VALUES ('Boulangerie',NULL,12,10);
 INSERT INTO Pokestop VALUES ('Piscine',NULL,20,5);
-INSERT INTO Objet VALUES ('Potion','achetable','et glou et glou',20);
-INSERT INTO Objet VALUES ('Repousse','achetable','lssez moi trkl pt1n',30);
-INSERT INTO Proposer VALUES ('Boulangerie','Repousse',2);
-INSERT INTO Proposer VALUES ('Boulangerie','Potion',5);
-INSERT INTO Proposer VALUES ('Piscine','Repousse',10);
-INSERT INTO Proposer VALUES ('Piscine','Potion',3);
+
+INSERT INTO Objet VALUES ('Potion de soin mineure', 'achetable', 'objet nul', 50);
+INSERT INTO Objet VALUES ('Potion de soin majeure', 'achetable', 'objet nul', 100);
+INSERT INTO Potion VALUES ('Potion de soin mineure', 40);
+INSERT INTO Potion VALUES ('Potion de soin majeure', 80);
 
 //exemple d'INSERT pour effectuer tous les tests nécessaires '
 INSERT INTO Joueur VALUES
-('Mare','benjami.mare@etu.utc.fr',to_date('23051996','DDMMYYYY'),'masculin','France',0,10,30,0,0,to_date('31122016','DDMMYYYY'),0,0);
+('Mare','benjami.mare@etu.utc.fr',to_date('23051996','DDMMYYYY'),'masculin','France',0,0,0,0,0,to_date('31122016','DDMMYYYY'),0,0);
+
 INSERT INTO Joueur VALUES
-('Arobaz','glm.hillion@gmail.com',to_date('24021997','DDMMYYYY'),'masculin','France',0,10,40,0,0,to_date('31122016','DDMMYYYY'),0,0);
+('Arobaz', 'arobaz@etu.utc.fr', to_date ('12121996', 'DDMMYYYY'), 'masculin', 'France', 0, 0, 0, 0, 0, to_date('31122016', 'DDMMYYYY'), 0, 0);
 

@@ -3,7 +3,9 @@
 	
 	
 	$pseudo = "Arobaz";
-	$vSqlExistanceObjet = "SELECT nom, prixargentreel(nom) FROM Objet WHERE nom= '$_POST[nomObjet]' AND type ='achetable';"; 
+	$vSqlExistanceObjet = "SELECT o.nom, prixargentreel(o.nom), s.pays 
+			FROM Objet o, Vendre v, joueur j, shop s 
+			WHERE o.type='achetable' AND v.objet = o.nom AND v.shop = s.pays AND j.pays = s.pays;"; 
 	$vQuery = pg_query($vConn, $vSqlExistanceObjet);
 	
 	if(! ($vResult = pg_fetch_array($vQuery))){
@@ -14,17 +16,28 @@
 	
 	echo $vResult["prixargentreel"] ;
 	$prixpotion =  $vResult["prixargentreel"] ;
-	$vSqlArgentJoueur = "SELECT argent AS argentJoueur FROM Joueur  WHERE nom ='$pseudo';";
+	$vSqlArgentJoueur = "SELECT nom, argent FROM Joueur  WHERE nom ='$pseudo';";
 	
 	$vQuery2 = pg_query($vConn, $vSqlArgentJoueur);
-	echo "argent joueur : $vQuery2[argentJoueur]";
+	$vResult2 = pg_fetch_array($vQuery2);
+	
+	echo "argent joueur : $vResult2[argent]";
 	echo "prix potion $prixpotion";
-	if($vQuery2['argentJoueur'] < $prixpotion){
+	if($vResult2['argent'] < $prixpotion){
 		echo 'erreur, sale pauvre';
 		include('achatshop.php');
 		exit();		
 	}
 	echo 'gg le riche';
+	echo "pays : $vResult[pays]";
+	echo "pseudo : $pseudo";
+	echo "date : NOW()";
+	echo "prix potion $prixpotion";	
+	$vSqlModifDonnees = "INSERT INTO effectuertransactionavec VALUES ('$vResult[pays]', '$pseudo', NOW(), $prixpotion);";
+	pg_query($vConn, $vSqlModifDonnees);
+	$vSqlModifDonnees = "UPDATE joueur SET argent = argent - $prixpotion WHERE nom='$pseudo'";
+	pg_query($vConn, $vSqlModifDonnees);
+	
 
 
 
