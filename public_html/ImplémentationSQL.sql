@@ -198,6 +198,33 @@ CREATE OR REPLACE FUNCTION ArenesPotentielles (pseudo text,lim float)RETURNS TAB
 	WHERE Joueur.nom=pseudo AND(SQRT(POWER(arene.coord_latitude::float-joueur.coord_latitude::float,2)::float+ pow(Arene.coord_longitude::float-Joueur.coord_longitude::float,2)::float)::float<=lim)
 $$ LANGUAGE SQL;
 
+CREATE OR REPLACE FUNCTION PokestopAttente (pseudo text,lim float)RETURNS TABLE(nom text, attente interval) AS $$
+	SELECT pokestop,date_trunc('second', '00:01:00'::time-(CURRENT_TIMESTAMP-derniereVisite)::time)
+	FROM Visiter
+	INNER JOIN 
+	(SELECT Pokestop.nom
+	FROM Joueur, Pokestop
+	WHERE Joueur.nom=pseudo AND(SQRT(POWER(Pokestop.coord_latitude::float-Joueur.coord_latitude::float,2)::float+ pow(Pokestop.coord_longitude::float-Joueur.coord_longitude::float,2)::float)::float<=lim)) AS PokestopsAlentours ON Visiter.pokestop=PokestopsAlentours.nom
+	WHERE (CURRENT_TIMESTAMP-Visiter.derniereVisite<interval '1 minute');
+$$ LANGUAGE SQL;
+
+CREATE PROCEDURE ajoutStock(bool integer,pseudo text, objet text, quantite integer) 
+IF bool==0
+BEGIN
+	INSERT INTO Posseder VALUES('pseudo','objet',quantite)
+END
+ELSE
+BEGIN
+	UPDATE Posseder
+	SET Posseder.quantite=Posseder.quantite+quantite
+	WHERE Posseder.joueur=$pseudo AND Posseder.objet=$objet
+END;
+
+CREATE OR REPLACE FUNCTION ShopPotentiel (pseudo text)RETURNS TABLE(pays VARCHAR) AS $$
+	
+	SELECT Shop.pays FROM Shop INNER JOIN Joueur ON Joueur.pays=Shop.pays WHERE Joueur.nom='Arobaz'
+; $$ LANGUAGE SQL;
+
 
 CREATE OR REPLACE FUNCTION age(IN nomJoueur VARCHAR) RETURNS DOUBLE PRECISION AS $$
 	SELECT trunc(((DATE_PART('year', current_date) - DATE_PART('year', j.dateNaissance))*12 + (DATE_PART('month', current_date) - DATE_PART('month', j.dateNaissance)))/12)
