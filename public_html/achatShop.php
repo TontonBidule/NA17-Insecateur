@@ -12,7 +12,7 @@
 			$vQuery = pg_query($vConn, $vSql);
 			while($vResult = pg_fetch_array($vQuery)){ 
 		?>	
-				<OPTION value = <?php echo "$vResult[nom] > $vResult[nom] : $vResult[prixargentreel] pc"?>
+				<OPTION value = <?php echo " \"$vResult[nom]\" > $vResult[nom] : $vResult[prixargentreel] pc"?>
 				
 		<?php
 		};
