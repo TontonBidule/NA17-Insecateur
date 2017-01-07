@@ -198,6 +198,11 @@ CREATE OR REPLACE FUNCTION PokestopAttente (pseudo text,lim float)RETURNS TABLE(
 	WHERE (CURRENT_TIMESTAMP-Visiter.derniereVisite<interval '1 minute');
 $$ LANGUAGE SQL;
 
+CREATE OR REPLACE FUNCTION ShopPotentiel (pseudo text)RETURNS TABLE(pays VARCHAR) AS $$
+	
+	SELECT Shop.pays FROM Shop INNER JOIN Joueur ON Joueur.pays=Shop.pays WHERE Joueur.nom='Arobaz'
+	; $$ LANGUAGE SQL;
+
 
 
 
@@ -224,7 +229,8 @@ BEGIN
 	SET Posseder.quantite=Posseder.quantite+quantite
 	WHERE Posseder.joueur=$pseudo AND Posseder.objet=$objet
 END;
-
+
+
 
 
 CREATE OR REPLACE FUNCTION puissance(numPokemon INTEGER, nomPokemon VARCHAR) RETURNs FLOAT AS $$

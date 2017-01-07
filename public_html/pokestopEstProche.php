@@ -22,7 +22,8 @@ $row=pg_fetch_array($vQuery2);
 	}
 else
 	{
-	echo '<form action="recupererObjets.php" method=POST>';
+		echo "<body onload='pokestops.reset();'>";
+	echo '<form action="recupererObjets.php" id=pokestops method=POST>';
 	do
 		{
 		$nom=$row["nom"];
@@ -32,6 +33,7 @@ else
 	while($row = pg_fetch_array($vQuery2));
 	echo '<input type="submit" value="Submit">';
 	echo '</form>';
+	echo'</body>';
 	echo '</html>';
 	}
 	

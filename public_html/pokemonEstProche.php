@@ -18,7 +18,8 @@ $row=pg_fetch_array($vQuery2);
 	}
 else
 	{
-	echo '<form action="capturePokemon.php" method=POST>';
+	echo "<body onload='pokemons.reset();'>";
+	echo '<form action="capturePokemon.php" id=pokemons method=POST>';
 	do
 		{
 		$chaine= $row["nom"].':'.$row["num"];
@@ -28,7 +29,8 @@ else
 	while($row = pg_fetch_array($vQuery2));
 	echo '<input type="submit" value="Submit">';
 	echo '</form>';
-	echo $chaine;
+	echo '</body>';
+	
 	echo '</html>';
 	
 	}
