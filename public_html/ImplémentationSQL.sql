@@ -140,7 +140,7 @@ CREATE OR REPLACE TABLE  Connaitre(
 CREATE OR REPLACE TABLE  Visiter(
 	joueur varchar references Joueur(nom),
 	pokestop varchar references Pokestop(nom),
-	derniereVisite date,
+	derniereVisite timestamp,
 	PRIMARY KEY(joueur,pokestop)
 );
 
@@ -179,10 +179,26 @@ CREATE OR REPLACE FUNCTION PokemonPotentiels (pseudo text,lim float)RETURNS TABL
 $$ LANGUAGE SQL;
 
 CREATE OR REPLACE FUNCTION PokestopPotentiels (pseudo text,lim float)RETURNS TABLE(nom text) AS $$
-	SELECT Pokestop.nom
+	SELECT pokestop
+	FROM Visiter
+	INNER JOIN 
+	(SELECT Pokestop.nom
 	FROM Joueur, Pokestop
-	WHERE Joueur.nom=pseudo AND(SQRT(POWER(Pokestop.coord_latitude::float-Joueur.coord_latitude::float,2)::float+ pow(Pokestop.coord_longitude::float-Joueur.coord_longitude::float,2)::float)::float<=lim)
+	WHERE Joueur.nom=pseudo AND(SQRT(POWER(Pokestop.coord_latitude::float-Joueur.coord_latitude::float,2)::float+ pow(Pokestop.coord_longitude::float-Joueur.coord_longitude::float,2)::float)::float<=lim)) AS PokestopsAlentours ON Visiter.pokestop=PokestopsAlentours.nom
+	WHERE (CURRENT_TIMESTAMP-Visiter.derniereVisite>interval '1 minutes');
 $$ LANGUAGE SQL;
+
+CREATE OR REPLACE FUNCTION PokestopAttente (pseudo text,lim float)RETURNS TABLE(nom text, attente interval) AS $$
+	SELECT pokestop,date_trunc('second', '00:01:00'::time-(CURRENT_TIMESTAMP-derniereVisite)::time)
+	FROM Visiter
+	INNER JOIN 
+	(SELECT Pokestop.nom
+	FROM Joueur, Pokestop
+	WHERE Joueur.nom=pseudo AND(SQRT(POWER(Pokestop.coord_latitude::float-Joueur.coord_latitude::float,2)::float+ pow(Pokestop.coord_longitude::float-Joueur.coord_longitude::float,2)::float)::float<=lim)) AS PokestopsAlentours ON Visiter.pokestop=PokestopsAlentours.nom
+	WHERE (CURRENT_TIMESTAMP-Visiter.derniereVisite<interval '1 minute');
+$$ LANGUAGE SQL;
+
+
 
 
 CREATE OR REPLACE FUNCTION age(IN nomJoueur VARCHAR) RETURNS DOUBLE PRECISION AS $$
@@ -267,5 +283,5 @@ INSERT INTO Proposer VALUES ('Piscine','Potion',3);
 INSERT INTO Joueur VALUES
 ('Mare','benjami.mare@etu.utc.fr',to_date('23051996','DDMMYYYY'),'masculin','France',0,10,30,0,0,to_date('31122016','DDMMYYYY'),0,0);
 INSERT INTO Joueur VALUES
-('Arobaz','glm',to_date('24021997','DDMMYYYY'),'masculin','France',0,10,40,0,0,to_date('31122016','DDMMYYYY'),0,0);
+('Arobaz','glm.hillion@gmail.com',to_date('24021997','DDMMYYYY'),'masculin','France',0,10,40,0,0,to_date('31122016','DDMMYYYY'),0,0);
 

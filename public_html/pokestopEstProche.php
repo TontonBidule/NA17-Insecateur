@@ -13,7 +13,12 @@ $row=pg_fetch_array($vQuery2);
 
 	if(empty($row))
 	{
-	echo "Pas de pokestops a l'horizon...";	
+	echo "Pas de pokestops pour l'instant";
+	echo "<br>";
+	
+
+	
+	
 	}
 else
 	{
@@ -28,6 +33,23 @@ else
 	echo '<input type="submit" value="Submit">';
 	echo '</form>';
 	echo '</html>';
+	}
+	
+$vSql3 = "SELECT * FROM PokestopAttente('".$pseudo."',$param)";
+	$vQuery3 = pg_query($vSql3); 
+	$vResult3 = pg_fetch_array($vQuery3);
+	
+	if(!empty($vResult3))
+	{
+	do{
+	echo "Ouverture du pokestop ";
+	echo $vResult3['nom'];
+	echo " dans ";
+	echo $vResult3['attente'];
+	echo "<br>";
+		
+	}
+	while($vResult3 = pg_fetch_array($vQuery3));
 	}
 
 

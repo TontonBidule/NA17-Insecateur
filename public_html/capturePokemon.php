@@ -17,7 +17,8 @@ $nbPokemonsCapturesAjd= $vResult1['nbPokemonsCapturesAjd'];
 
 $restant=$maxCapture-$nbPokemonsCapturesAjd;
 
-
+if (!isset($_POST['pokemon']))
+{header('Location:pokemonEstProche.php');}
 
 if (($restant)<0)
 	{
