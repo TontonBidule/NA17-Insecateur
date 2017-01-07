@@ -188,6 +188,12 @@ CREATE OR REPLACE FUNCTION PokestopPotentiels (pseudo text,lim float)RETURNS TAB
 	WHERE (CURRENT_TIMESTAMP-Visiter.derniereVisite>interval '1 minutes');
 $$ LANGUAGE SQL;
 
+CREATE OR REPLACE FUNCTION ArenesPotentielles (pseudo text,lim float)RETURNS TABLE(nom text) AS $$
+	SELECT Arene.nom
+	FROM Joueur, Arene
+	WHERE Joueur.nom=pseudo AND(SQRT(POWER(arene.coord_latitude::float-joueur.coord_latitude::float,2)::float+ pow(Arene.coord_longitude::float-Joueur.coord_longitude::float,2)::float)::float<=lim)
+$$ LANGUAGE SQL;
+
 CREATE OR REPLACE FUNCTION PokestopAttente (pseudo text,lim float)RETURNS TABLE(nom text, attente interval) AS $$
 	SELECT pokestop,date_trunc('second', '00:01:00'::time-(CURRENT_TIMESTAMP-derniereVisite)::time)
 	FROM Visiter
