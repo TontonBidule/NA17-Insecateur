@@ -1,6 +1,6 @@
 <?php
 	include('connexionBDD.php');
-	
+	include('index.php');
 	
 	$pseudo = $_GET['pseudo'];
 	echo "pseudo : $pseudo";
@@ -15,7 +15,6 @@
 	
 	if($vResult['argent'] < $prixpotion){
 		echo 'erreur, tu es peut etre un tres bon dresseur, mais tu n as pas assez d argent';
-		include('achatShop.php');
 		exit();	
 	}
 	echo 'la transaction a bien ete effectuee o grand dresseur';
@@ -23,7 +22,7 @@
 
 	$vSqltentative="SELECT * FROM Posseder WHERE joueur='$pseudo' AND objet='$_POST[nomObjet]'";
 	$vQuery = pg_query($vConn, $vSqltentative);
-	if(!($vResult2 = pg_fetch_array($vQuery))){
+	if(empty($vResult2 = pg_fetch_array($vQuery))){
 		$vSqlModifDonnees = "INSERT INTO posseder VALUES ('$pseudo', '$_POST[nomObjet]', 0);";
 		pg_query($vConn, $vSqlModifDonnees);
 	}
@@ -36,7 +35,6 @@
 		COMMIT;";
 	pg_query($vConn, $vSqlModifDonnees);
 	
-	include('achatShop.php');
 /*INSERT INTO posseder VALUES ('$pseudo', '$_POST[nomObjet]', 0);	
 INSERT INTO posseder VALUES ('Arobaz', 'Potion de soin mineure', 0);*/
 

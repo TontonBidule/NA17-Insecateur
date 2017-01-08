@@ -19,16 +19,16 @@
 		</td>
 </tr>
 <tr>
-<td onclick = "window.location = 'administration.php<?php if(isset($_GET['pseudo'])){echo "?pseudo=$_GET[pseudo]";} ?>'">
+<td onclick = "window.location = 'explorer.php<?php if(isset($_GET['pseudo'])){echo "?pseudo=$_GET[pseudo]";} ?>'">
 <center>Administration</center>
 		</td>
 </tr>
 <tr>
-<td onclick = "window.location = 'explorer.php<?php if(isset($_GET['pseudo'])){echo "?pseudo=$_GET[pseudo]";} ?>'">
+<td onclick = "window.location = 'administration.php<?php if(isset($_GET['pseudo'])){echo "?pseudo=$_GET[pseudo]";} ?>'">
 <center>Explorer</center>
 		</td>
 </tr>
-<td onclick = "window.location = 'achatshop.php<?php if(isset($_GET['pseudo'])){echo "?pseudo=$_GET[pseudo]";} ?>'">
+<td onclick = "window.location = 'achatShop.php<?php if(isset($_GET['pseudo'])){echo "?pseudo=$_GET[pseudo]";} ?>'">
 <center>Acheter</center>
 		</td>
 </tr>

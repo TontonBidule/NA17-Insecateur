@@ -1,13 +1,10 @@
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-      	<title>Achat Shop</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-</head>
+
 
 <?php
-include("index.php");
+
 include('connexionBDD.php');
-			$pseudo = "Arobaz";
+include('index.php');
+			$pseudo = $_GET['pseudo'];
 			$vSql = "SELECT o.nom, prixargentreel(o.nom)  
 					FROM Objet o, Vendre v, joueur j, shop s 
 					WHERE o.type='achetable' AND v.objet = o.nom AND v.shop = s.pays AND j.pays = s.pays;";
@@ -38,6 +35,3 @@ include('connexionBDD.php');
 	echo '<input type ="submit" value="valider" />';
 			echo "</form>";}
 ?>
-</div>
-</body>
-</html>
