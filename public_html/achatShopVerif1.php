@@ -2,7 +2,8 @@
 	include('connexionBDD.php');
 	
 	
-	$pseudo = "Arobaz";
+	$pseudo = $_GET['pseudo'];
+	echo "pseudo : $pseudo";
 	$vSqlExistanceObjet = "SELECT prixargentreel(o.nom), s.pays pays, j.argent
 			FROM Objet o, Vendre v, joueur j, shop s
 			WHERE o.type='achetable' AND o.nom = '$_POST[nomObjet]' AND  v.objet = o.nom AND v.shop = s.pays AND j.pays = s.pays;"; 
@@ -23,8 +24,7 @@
 	$vSqltentative="SELECT * FROM Posseder WHERE joueur='$pseudo' AND objet='$_POST[nomObjet]'";
 	$vQuery = pg_query($vConn, $vSqltentative);
 	if(!($vResult2 = pg_fetch_array($vQuery))){
-		$vSqlModifDonnees = "
-			INSERT INTO posseder VALUES ('$pseudo', '$_POST[nomObjet]', 0);"
+		$vSqlModifDonnees = "INSERT INTO posseder VALUES ('$pseudo', '$_POST[nomObjet]', 0);";
 		pg_query($vConn, $vSqlModifDonnees);
 	}
 
