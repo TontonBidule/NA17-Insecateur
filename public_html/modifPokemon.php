@@ -11,38 +11,42 @@
 	$nomTypePokemon=$_POST['type1'];
 	$nomTypeSecondaire=$_POST['type2'];
 	$evol=$_POST['evolution'];
-	if(!isset($nomPokemon)){
+	if(empty($nomPokemon)){
 		include("deconnexionBDD.php");
 		header("Location: administration.php?codeRetour=1");
 	}
 	else{
 		$sql="UPDATE EspecePokemon SET";
 		$virgule="";
-		if(isset($numPokemon)){$sql=$sql.$virgule." numFamille=".$numPokemon;$virgule=",";}
-		if(isset($probabiliteApparition)){$sql=$sql.$virgule." probaApparition=".$probabiliteApparition;$virgule=",";}
-		if(isset($probabiliteCapture)){$sql=$sql.$virgule." probaCapture=".$probabiliteCapture;$virgule=",";}
-		if(isset($evol)){$sql=$sql.$virgule." evolution='".$evol."'";$virgule=",";}
-		if(isset($nomTypePokemon)){$sql=$sql.$virgule." type1='".$nomTypePokemon."'";$virgule=",";}
-		if(isset($baseAttaque)){$sql=$sql.$virgule." baseAttaque=".$baseAttaque;$virgule=",";}
-		if(isset($baseDefense)){$sql=$sql.$virgule." baseDefense=".$baseDefense;$virgule=",";}
-		if(isset($baseSante)){$sql=$sql.$virgule." baseSante=".$baseSante;$virgule=",";}
-		if(isset($pointCombat)){$sql=$sql.$virgule." capaciteCombatBase=".$pointCombat;$virgule=",";}
-		if(isset($nomTypeSecondaire)){$sql=$sql.$virgule." type2='".$nomTypeSecondaire."'";$virgule=",";}
+		if(!empty($numPokemon)){$sql=$sql.$virgule." numFamille=".$numPokemon;$virgule=",";}
+		if(!empty($probabiliteApparition)){$sql=$sql.$virgule." probaApparition=".$probabiliteApparition;$virgule=",";}
+		if(!empty($probabiliteCapture)){$sql=$sql.$virgule." probaCapture=".$probabiliteCapture;$virgule=",";}
+		if(!empty($evol)){$sql=$sql.$virgule." evolution='".$evol."'";$virgule=",";}
+		if(!empty($nomTypePokemon)){$sql=$sql.$virgule." type1='".$nomTypePokemon."'";$virgule=",";}
+		if(!empty($baseAttaque)){$sql=$sql.$virgule." baseAttaque=".$baseAttaque;$virgule=",";}
+		if(!empty($baseDefense)){$sql=$sql.$virgule." baseDefense=".$baseDefense;$virgule=",";}
+		if(!empty($baseSante)){$sql=$sql.$virgule." baseSante=".$baseSante;$virgule=",";}
+		if(!empty($pointCombat)){$sql=$sql.$virgule." capaciteCombatBase=".$pointCombat;$virgule=",";}
+		if(!empty($nomTypeSecondaire)){$sql=$sql.$virgule." type2='".$nomTypeSecondaire."'";$virgule=",";}
 		$sql=$sql." WHERE nom='".$nomPokemon."';";
 		$query=pg_query($vConn,$sql);
 		if(!$query){
 			include("deconnexionBDD.php");
 			header("Location: administration.php?codeRetour=2");
 		}
-		if(isset($evolDe)){
+		if(!empty($evolDe)){
 			$sql="UPDATE EspecePokemon SET evolution='".$nomPokemon."WHERE nom='".$evolDe."';";
 			$query=pg_query($vConn,$sql);
+			include("deconnexionBDD.php");
 			if(!$query){
-				include("deconnexionBDD.php");
 				header("Location: administration.php?codeRetour=3");
 			}
+			else{
+				header("Location: administration.php?codeRetour=0");
+			}
+		}else{
+			include("deconnexionBDD.php");
+			header("Location: administration.php?codeRetour=0");
 		}
-		include("deconnexionBDD.php");
-		header("Location: administration.php?codeRetour=0");
 	}
 ?>

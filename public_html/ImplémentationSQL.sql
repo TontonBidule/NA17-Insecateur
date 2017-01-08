@@ -2,10 +2,10 @@ CREATE OR REPLACE TYPE typeObjet AS ENUM ('achetable','trouvable','donne');
 CREATE OR REPLACE TYPE typeSexe AS ENUM ('masculin','feminin');
 CREATE OR REPLACE TYPE typePokeball AS ENUM ('artisanale','classique');
 
-CREATE OR REPLACE TABLE TypePokemon(
+CREATE  TABLE TypePokemon(
 	nom varchar PRIMARY KEY);
 	
-CREATE OR REPLACE TABLE EspecePokemon(
+CREATE  TABLE EspecePokemon(
 	nom varchar PRIMARY KEY,
 	numFamille integer,
 	probaApparition float,
@@ -20,7 +20,7 @@ CREATE OR REPLACE TABLE EspecePokemon(
 	CHECK(probaApparition>=0 AND probaApparition<=1 AND probaCapture>=0 AND probaCapture<=1)
 	);
 	
-CREATE OR REPLACE TABLE Objet(
+CREATE  TABLE Objet(
 	nom varchar PRIMARY KEY,
 	type typeObjet not null,
 	description varchar,
@@ -31,7 +31,7 @@ CREATE OR REPLACE TABLE Objet(
 
 
 
-CREATE OR REPLACE TABLE IndividuPokemon(
+CREATE  TABLE IndividuPokemon(
 	nom varchar references EspecePokemon(nom),
 	num integer,
 	attaqueIV float,
@@ -43,7 +43,7 @@ CREATE OR REPLACE TABLE IndividuPokemon(
 	CHECK(attaqueIV>=0 AND attaqueIV<=15 AND defenseIV>=0 AND defenseIV<=15 AND santeIV>=0 AND santeIV<=15)
 	);
 
-CREATE OR REPLACE TABLE Joueur(
+CREATE  TABLE Joueur(
 	nom varchar PRIMARY KEY,
 	email varchar unique,
 	dateNaissance date not null,
@@ -61,12 +61,12 @@ CREATE OR REPLACE TABLE Joueur(
 	
 );
 
-CREATE OR REPLACE TABLE Pokeball(
+CREATE  TABLE Pokeball(
 	nom varchar PRIMARY KEY references Objet(nom),
 	type typePokeball
 );
 
-CREATE OR REPLACE TABLE PokemonSauvage(
+CREATE  TABLE PokemonSauvage(
 	nom varchar,
 	num integer,
 	coord_latitude float,
@@ -76,7 +76,7 @@ CREATE OR REPLACE TABLE PokemonSauvage(
 	FOREIGN KEY(nom,num) REFERENCES IndividuPokemon(nom,num)
 );
 
-CREATE OR REPLACE TABLE PokemonCapture(
+CREATE  TABLE PokemonCapture(
 	nom varchar,
 	num integer,
 	dresseur varchar not null references Joueur(nom),
@@ -85,7 +85,7 @@ CREATE OR REPLACE TABLE PokemonCapture(
 	FOREIGN KEY(nom,num) REFERENCES IndividuPokemon(nom,num)
 );
 
-CREATE OR REPLACE TABLE Arene(
+CREATE  TABLE Arene(
 	nom varchar PRIMARY KEY,
 	photo varchar unique,
 	coord_latitude float,
@@ -95,7 +95,7 @@ CREATE OR REPLACE TABLE Arene(
 
 
 
-CREATE OR REPLACE TABLE Pokestop(
+CREATE  TABLE Pokestop(
 	nom varchar PRIMARY KEY,
 	photo varchar unique,
 	coord_latitude float,
@@ -103,13 +103,13 @@ CREATE OR REPLACE TABLE Pokestop(
 	unique(coord_latitude, coord_longitude)
 );
 
-CREATE OR REPLACE TABLE Shop(
+CREATE  TABLE Shop(
 	pays varchar PRIMARY KEY
 );
 
 
 
-CREATE OR REPLACE TABLE Potion(
+CREATE  TABLE Potion(
 	nom varchar PRIMARY KEY references Objet(nom),
 	santeRestauree integer not null
 );
@@ -117,7 +117,7 @@ CREATE OR REPLACE TABLE Potion(
 
 
 
-CREATE OR REPLACE TABLE ParametresAdmin(
+CREATE  TABLE ParametresAdmin(
 	distanceMaxPokestop integer,
 	distanceMaxPokemon integer,
 	maxCapture integer,
@@ -129,46 +129,46 @@ CREATE OR REPLACE TABLE ParametresAdmin(
 INSERT INTO ParametresAdmin VALUES(1,0,0,0,0);
 
 
-CREATE OR REPLACE TABLE CombattreDans(
+CREATE  TABLE CombattreDans(
 	arene varchar references Arene(nom),
 	joueur varchar references Joueur(nom),
 	PRIMARY KEY(arene,joueur)
 );
 
-CREATE OR REPLACE TABLE  Connaitre(
+CREATE  TABLE  Connaitre(
 	joueur varchar references Joueur(nom),
 	pokemon varchar references EspecePokemon(nom),
 	PRIMARY KEY(joueur,pokemon)
 );
 
-CREATE OR REPLACE TABLE  Visiter(
+CREATE  TABLE  Visiter(
 	joueur varchar references Joueur(nom),
 	pokestop varchar references Pokestop(nom),
 	derniereVisite date,
 	PRIMARY KEY(joueur,pokestop)
 );
 
-CREATE OR REPLACE TABLE Vendre(
+CREATE  TABLE Vendre(
 	shop varchar references Shop(pays),
 	objet varchar references Objet(nom),
 	PRIMARY KEY(shop,objet)
 );
 
-CREATE OR REPLACE TABLE Posseder(
+CREATE  TABLE Posseder(
 	joueur varchar references Joueur(nom),
 	objet varchar references Objet(nom),
 	quantite integer NOT NULL,
 	PRIMARY KEY(joueur,objet)
 );
 
-CREATE OR REPLACE TABLE Proposer(
+CREATE  TABLE Proposer(
 	pokestop varchar references Pokestop(nom),
 	objet varchar references Objet(nom),
 	quantite integer NOT NULL,
 	PRIMARY KEY(pokestop,objet)
 );
 
-CREATE OR REPLACE TABLE EffectuerTransactionAvec(
+CREATE  TABLE EffectuerTransactionAvec(
 	shop varchar references Shop(pays),
 	joueur varchar references Joueur(nom),
 	date date,
@@ -208,17 +208,6 @@ CREATE OR REPLACE FUNCTION PokestopAttente (pseudo text,lim float)RETURNS TABLE(
 	WHERE (CURRENT_TIMESTAMP-Visiter.derniereVisite<interval '1 minute');
 $$ LANGUAGE SQL;
 
-CREATE PROCEDURE ajoutStock(bool integer,pseudo text, objet text, quantite integer) 
-IF bool==0
-BEGIN
-	INSERT INTO Posseder VALUES('pseudo','objet',quantite)
-END
-ELSE
-BEGIN
-	UPDATE Posseder
-	SET Posseder.quantite=Posseder.quantite+quantite
-	WHERE Posseder.joueur=$pseudo AND Posseder.objet=$objet
-END;
 
 CREATE OR REPLACE FUNCTION ShopPotentiel (pseudo text)RETURNS TABLE(pays VARCHAR) AS $$
 	

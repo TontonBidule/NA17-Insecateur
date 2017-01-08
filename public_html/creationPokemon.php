@@ -11,33 +11,37 @@
 	$nomTypePokemon=$_POST['type1'];
 	$nomTypeSecondaire=$_POST['type2'];
 	$evolDe=$_POST['nomEvolDe'];
-	if(!isset($nomPokemon)||!isset($probabiliteApparition)||!isset($probabiliteCapture)||!isset($nomTypePokemon)){
+	if(empty($nomPokemon)||empty($probabiliteApparition)||empty($probabiliteCapture)||empty($nomTypePokemon)){
 		include("deconnexionBDD.php");
 		header("Location: administration.php?codeRetour=1");
 	}
 	else{
-		if(!isset($numPokemon)){$numPokemon="NULL";}
-		if(!isset($baseAttaque)){$baseAttaque="NULL";}
-		if(!isset($baseDefense)){$baseDefense="NULL";}
-		if(!isset($baseSante)){$baseSante="NULL";}
-		if(!isset($pointCombat)){$pointCombat="NULL";}
-		if(!isset($nomTypeSecondaire)){$nomTypeSecondaire="NULL";}
+		if(empty($numPokemon)){$numPokemon="NULL";}
+		if(empty($baseAttaque)){$baseAttaque="NULL";}
+		if(empty($baseDefense)){$baseDefense="NULL";}
+		if(empty($baseSante)){$baseSante="NULL";}
+		if(empty($pointCombat)){$pointCombat="NULL";}
+		if(empty($nomTypeSecondaire)){$nomTypeSecondaire="NULL";}
 		else{$nomTypeSecondaire="'".$nomTypeSecondaire."'";}
-		$sql="INSERT INTO EspecePokemon VALUES('".$nomPokemon."',".$numPokemon.",".$probabiliteApparition.",".$probabiliteCapture.",".$baseAttaque.",".$baseDefense.",".$baseSante.",".$pointCombat.",".$nomTypePokemon.",".$nomTypeSecondaire.",NULL);";
+		$sql="INSERT INTO EspecePokemon VALUES('".$nomPokemon."',".$numPokemon.",".$probabiliteApparition.",".$probabiliteCapture.",".$baseAttaque.",".$baseDefense.",".$baseSante.",".$pointCombat.",'".$nomTypePokemon."',".$nomTypeSecondaire.",NULL);";
 		$query=pg_query($vConn,$sql);
 		if(!$query){
 			include("deconnexionBDD.php");
 			header("Location: administration.php?codeRetour=2");
 		}
-		if(isset($evolDe)){
-			$sql="UPDATE EspecePokemon SET evolution='".$nomPokemon."WHERE nom='".$evolDe."';";
+		else if(!empty($evolDe)){
+			$sql="UPDATE EspecePokemon SET evolution='".$nomPokemon."'WHERE nom='".$evolDe."';";
 			$query=pg_query($vConn,$sql);
 			if(!$query){
 				include("deconnexionBDD.php");
 				header("Location: administration.php?codeRetour=3");
 			}
+			else{
+				header("Location: administration.php?codeRetour=0");
+			}
+		}else{
+			include("deconnexionBDD.php");
+			header("Location: administration.php?codeRetour=0");
 		}
-		include("deconnexionBDD.php");
-		header("Location: administration.php?codeRetour=0");
 	}
 ?>
