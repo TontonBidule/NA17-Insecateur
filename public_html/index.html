@@ -9,33 +9,59 @@
 </div>
  
 <div id="menu" style="background-color:#778899;height:550px;width:150px;float:left;">
-<table>
-	<tr>
-		<td onclick = "window.location = 'accessJoueur.php'">
-		<center>Accéder</center>
+
+<?php
+if (isset($_GET['pseudo'])){
+$pseudo=$_GET['pseudo'];
+echo $pseudo;
+echo "<table>";
+echo "	<tr>";
+echo "<center><a href='http://tuxa.sme.utc/~nf17a016/accessJoueur.php?pseudo=$pseudo'>Connexion</a></center>";
+echo "		</td>";
+echo "	</tr>";
+echo "	<tr>";
+echo "<center><a href='http://tuxa.sme.utc/~nf17a016/inscription.php?pseudo=$pseudo'>Inscription</a></center>";
+echo "		</td>";
+echo "	</tr>";
+echo "	<tr>";
+echo "		<td>";
+echo "<center><a href='http://tuxa.sme.utc/~nf17a016/administration.php?pseudo=$pseudo'>Inscription</a></center>";
+echo "		</td>";
+echo "	</tr>";
+echo "	<tr>";
+echo "<center><a href='http://tuxa.sme.utc/~nf17a016/explorer.php?pseudo=$pseudo'>Explorer</a></center>";
+echo "		</td>";
+echo "	</tr>";
+echo "	<tr>";
+echo "<center><a href='http://tuxa.sme.utc/~nf17a016/achatShop.php?pseudo=$pseudo'>Acheter</a></center>";
+else
+{
+echo "<table>";
+echo "	<tr>";
+echo "<center><a href='http://tuxa.sme.utc/~nf17a016/accessJoueur.php'>Connexion</a></center>";
+echo "		</td>";
+echo "	</tr>";
+echo "	<tr>";
+echo "<center><a href='http://tuxa.sme.utc/~nf17a016/inscription.php'>Inscription</a></center>";
+echo "		</td>";
+echo "	</tr>";
+echo "	<tr>";
+echo "		<td>";
+echo "<center><a href='http://tuxa.sme.utc/~nf17a016/administration.php'>Inscription</a></center>";
+echo "		</td>";
+echo "	</tr>";
+echo "	<tr>";
+echo "<center><a href='http://tuxa.sme.utc/~nf17a016/explorer.php>Explorer</a></center>";
+echo "		</td>";
+echo "	</tr>";
+echo "	<tr>";
+echo "<center><a href='http://tuxa.sme.utc/~nf17a016/achatShop.php'>Acheter</a></center>";
+}
+
+?>
 		</td>
 	</tr>
-	<tr>
-		<td onclick = "window.location = 'inscription.php'">
-		<center>Inscription</center>
-		</td>
-	</tr>
-	<tr>
-		<td>
-		<center>Administration</center>
-		</td>
-	</tr>
-	<tr>
-		<td onclick = "window.location = 'explorer.php'">
-		<center>Explorer</center>
-		</td>
-	</tr>
-	<tr>
-		<td onclick = "window.location = 'achatShop.php'">
-		<center>Acheter</center>
-		</td>
-	</tr>
-</table>
+</table>";
 </div>
  
 <div id="content" style="background-color:#EEEEEE;height:550px;width:750px;float:left;">

@@ -58,7 +58,7 @@
 		
 		$vQuery=pg_query($vConn, $vSql);
 		if($result = pg_fetch_array($vQuery)){
-			include("enregistrementGPS.html");
+			include("enregistrementGPS.php");
 		}
 		else{
 			echo "<div style = 'display:table-cell; vertical-align:middle;'>
