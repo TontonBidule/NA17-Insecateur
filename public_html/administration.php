@@ -31,10 +31,7 @@
 	</tr>
 </table>
 </div>
-<div id="content" style="background-color:#EEEEEE;height:550px;width:750px;float:left;">
-<center><div><h3>Bienvenue dans le monde de Pokémon!</h3></div></center>
-<center><div><img src="PokemonIndex.jpg" width="600"/></div></center>
-</div>
+<div id="content" style="background-color:#EEEEEE;height:550px;width:750px;float:left;overflow:auto;">
 <div style="background-color:#fafad2;"><center><b>Les champs avec "<font color="red">★</font>" sont obligatoires  </b></center></div>	
 <?php
 	if(isset($_GET['codeRetour'])){	
@@ -78,7 +75,7 @@
 		echo "</div>";
 	}
 ?>
-<div id="form" style="background-color:#778899;">
+<div id="form">
 	<table border="1"><tr><td>
 	<form method="POST" Action="creationPokemon.php">
 		<p><font color="red">★</font>Nom Pokémon:<input type="text" name="nomPok"/></p>
@@ -132,6 +129,8 @@
 	</form></td></tr>
 	</table>
 </div>
+</div>
+
 <div id="footer" style="background-color:#fafad2;clear:both;text-align:center;">
 Equipe I de NA17
 </div>
