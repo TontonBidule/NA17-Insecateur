@@ -15,11 +15,9 @@
 		if(empty($longitude)){$longitude="NULL";}
 		$sql="INSERT INTO pokestop VALUES('".$nomPokestop."',".$url.",".$latitude.",".$longitude.");";
 		$query=pg_query($vConn,$sql);
-		$vRes=pg_affected_rows($query);
-		echo $vRes;
 		include("deconnexionBDD.php");
 		if($query){
-			header("Location: administration.php?codeRetour=0&query=".$res);
+			header("Location: administration.php?codeRetour=0");
 		}
 		else{
 			header("Location: administration.php?codeRetour=2");
