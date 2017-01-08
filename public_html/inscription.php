@@ -33,11 +33,10 @@
 </table>
 </div>
 <?php
- if (isset($_GET['pseudo']))
+ if (!isset($_GET['pseudo']))
 {
-	$pseudo=$_GET['pseudo'];
-	echo "Vous etes deja connectes !<br><br>";
-	echo '<a href="http://tuxa.sme.utc/~nf17a016/index.php?pseudo='.$pseudo.'">Retour au menu !</a>';
+	echo "Vous n'etes pas connectes !<br><br>";
+	echo '<a href="http://tuxa.sme.utc/~nf17a016/accessJoueur.php">Connexion !</a>';
 }
 else
 {

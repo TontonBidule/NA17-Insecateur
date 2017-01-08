@@ -5,6 +5,13 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <?php
+ if (!isset($_GET['pseudo']))
+{
+	echo "Vous n'etes pas connectes !<br><br>";
+	echo '<a href="http://tuxa.sme.utc/~nf17a016/accessJoueur.php">Connexion !</a>';
+}
+else
+{
 	include("index.php");
 	echo "</div>";
 	echo "<div id='content' style='background-color:#EEEEEE;height:550px;width:750px;float:left;overflow:auto;'>";
@@ -24,7 +31,7 @@
 	echo"<br>";
 	echo "-VISITE DES ARENES AUX ALENTOURS -";
 	echo"<br>";
-	echo"<br>";
+	echo"<br>";}
 	//include(areneEstProche.php);
 ?>
 </div>
