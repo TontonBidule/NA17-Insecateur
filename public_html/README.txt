@@ -1,3 +1,7 @@
+index.php
+>à include sur chaque fichier après la balise </head>
+>affiche le menu et le le titre "Pokemon GO" en haut de la page
+
 achatShop.php
 >recoit les informations du formulaire de AffichageAlentours
 >envoi de la requete � la BDD, message avec le solde restant
