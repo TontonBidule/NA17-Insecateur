@@ -48,7 +48,6 @@ else
 		if ($rand<$probaCapture)
 			{
 			echo "- CAPTURE REUSSIE, TU REMPORTES $nom -";
-			echo "<br>";
 			$vSql2 = "BEGIN TRANSACTION;
 						INSERT INTO PokemonCapture VALUES('$nom',$num,'$pseudo','pokeball'); 
 						  DELETE FROM PokemonSauvage WHERE nom='$nom' AND num=$num;

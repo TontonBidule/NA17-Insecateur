@@ -33,24 +33,31 @@
 </div>
  
 <div id="content" style="background-color:#EEEEEE;height:550px;width:750px;float:left;">
-<center><div><h3>Accéder avec vos nom et email</h3></div></center>
-<center><div>
-<form action = "access2.php" method = "POST">
-<table>
-	<tr>
-		<td>*Nom: </td>
-		<td><input type = "text" name = "nom"></td>
-	</tr>
-	<tr>
-		<td>*Email: </td>
-		<td><input type = "text" name = "email"></td>
-	</tr>
-	
-	</table>
 
-<br>
-<input type = "submit" value = "Accéder" >
-</form>
+<?php
+if (isset($_GET['pseudo']))
+{
+	echo "Vous etes deja connectes !";
+}
+else
+{
+	echo "<center><div><h3>Accéder avec vos nom et email</h3></div></center>";
+	echo "<center><div>";
+	echo "<form action = 'access2.php' method = 'POST'>";
+	echo "<table>";
+	echo "	<tr>";
+	echo "		<td>*Nom: </td>";
+	echo "		<td><input type = 'text' name = 'nom'></td>";
+	echo "	</tr>";
+	echo "	<tr>";
+	echo "		<td>*Email: </td>";
+	echo "		<td><input type = 'text' name = 'email'></td>";
+	echo "	</tr>";
+	echo "	</table>";
+	echo "<br>";
+	echo "<input type = 'submit' value = 'Acceder' >";
+	echo "</form>";
+}
 </div></center>
 </div>
  

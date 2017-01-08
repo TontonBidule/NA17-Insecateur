@@ -24,13 +24,13 @@ include('connexionBDD.php');
 			echo 'Choisissez un objet a acheter : <SELECT name="nomObjet" size="1">';
 			do{ 
 		
-			echo '<OPTION value = " \"$vResult[nom]\" > $vResult[nom] : $vResult[prixargentreel] pc"';}
+			echo "<OPTION value = ".$vResult['nom']." > $vResult[nom] : ".$vResult['prixargentreel']." pc";}
 				
 			while($vResult = pg_fetch_array($vQuery));
 			
 	echo "</SELECT>";
 
-	echo 'entrez la quantite : <input type ="number", name = "nombre, min=0" />';
+	echo " entrez la quantite : <input type ='number', name = 'nombre'/>";
 	echo '<input type ="submit" value="valider" />';
 			echo "</form>";}
 ?>
