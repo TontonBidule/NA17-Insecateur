@@ -1,7 +1,6 @@
-<?php
 
-?>
-<form method="POST" action="enregistrerGPS.php" class="sizeForm">
+
+<form method="POST" action="enregistrerGPS.php?pseudo=<?php echo "$nom"?>" class="sizeForm">
 Position actuelle:<br>
 Longitude: <input type = "text" name = "lonJ">
 <br>

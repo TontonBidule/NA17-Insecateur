@@ -46,7 +46,7 @@ implémentationSQL.sql
 function.sql
 >fonctions SQL de la BDD
 
-index.html
+index.php
 >page d'accueil du site
 
 accessJoueur.php
@@ -67,7 +67,7 @@ visitePokestopFormulaire.php
 >à fusionner peut etre
 
 rechargerCompte.php
->appelé via index.html
+>appelé via index.php
 
 visitePokestopResultat.php
 >appelé via affichageAlentours.php

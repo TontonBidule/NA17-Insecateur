@@ -37,7 +37,9 @@
 <?php
 if (isset($_GET['pseudo']))
 {
+	$pseudo=$_GET['pseudo'];
 	echo "Vous etes deja connectes !";
+	echo '<a href="http://tuxa.sme.utc/~nf17a016/index.php?pseudo=$pseudo">Retour au menu !</a>';
 }
 else
 {
