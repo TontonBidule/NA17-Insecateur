@@ -15,7 +15,7 @@
 	
 	if($vResult['argent'] < $prixpotion){
 		echo 'erreur, tu es peut etre un tres bon dresseur, mais tu n as pas assez d argent';
-		include('achatshop.php');
+		include('achatShop.php');
 		exit();	
 	}
 	echo 'la transaction a bien ete effectuee o grand dresseur';
@@ -36,7 +36,7 @@
 		COMMIT;";
 	pg_query($vConn, $vSqlModifDonnees);
 	
-	include('achatshop.php');
+	include('achatShop.php');
 /*INSERT INTO posseder VALUES ('$pseudo', '$_POST[nomObjet]', 0);	
 INSERT INTO posseder VALUES ('Arobaz', 'Potion de soin mineure', 0);*/
 

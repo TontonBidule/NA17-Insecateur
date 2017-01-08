@@ -171,7 +171,7 @@ CREATE  TABLE Proposer(
 CREATE  TABLE EffectuerTransactionAvec(
 	shop varchar references Shop(pays),
 	joueur varchar references Joueur(nom),
-	date date,
+	date timestamp,
 	argentDepense float,
 	PRIMARY KEY(shop,joueur, date)
 );
