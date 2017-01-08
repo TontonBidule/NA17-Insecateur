@@ -28,8 +28,6 @@
 		pg_query($vConn, $vSqlModifDonnees);
 	}
 
-	
-
 	$vSqlModifDonnees = "
 		BEGIN TRANSACTION;
 		UPDATE posseder SET quantite = quantite + $_POST[nombre] WHERE joueur='$pseudo' AND objet = '$_POST[nomObjet]'; 
@@ -41,17 +39,4 @@
 	include('achatshop.php');
 /*INSERT INTO posseder VALUES ('$pseudo', '$_POST[nomObjet]', 0);	
 INSERT INTO posseder VALUES ('Arobaz', 'Potion de soin mineure', 0);*/
-
-
-
-
-
-	/*$lim = $vResultAdmin['distancemaxpokestop'];
-	$vSql = "SELECT nom FROM ArenesPotentielles('Arobaz', $lim)";
-	$vQuery = pg_query($vConn, $vSql);
-	while($vResult = pg_fetch_array($vQuery)){
-		echo"nom : $vResult[nom]\n";
-		echo"\n";
-	};*/
-?>
 
