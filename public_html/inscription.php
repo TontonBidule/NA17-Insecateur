@@ -1,4 +1,5 @@
 ﻿<html>
+<html>
 <body>
 
 <div id="container" style="width:900px">
@@ -31,8 +32,18 @@
 	</tr>
 </table>
 </div>
- 
-<div id="content" style="background-color:#EEEEEE;height:550px;width:750px;float:left;">
+<?php
+ if (isset($_GET['pseudo']))
+{
+	$pseudo=$_GET['pseudo'];
+	echo "Vous etes deja connectes !<br><br>";
+	echo '<a href="http://tuxa.sme.utc/~nf17a016/index.php?pseudo='.$pseudo.'">Retour au menu !</a>';
+}
+else
+{
+
+
+echo('<div id="content" style="background-color:#EEEEEE;height:550px;width:750px;float:left;">
 <center><div><h3>Inscription de Joueur</h3></div></center>
 <center><div>
 <form action = "inscription2.php" method = "POST">
@@ -86,7 +97,9 @@
 <input type = "submit" value = "Inscription" >
 </form>
 </div></center>
-</div>
+</div>');
+}
+?>
  
 <div id="footer" style="background-color:#fafad2;clear:both;text-align:center;">
 Equipe I de NA17
