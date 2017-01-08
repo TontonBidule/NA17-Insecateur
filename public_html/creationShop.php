@@ -1,19 +1,19 @@
 <?php
 	require_once("connexionBDD.php");
-	
 	$pays=$_POST['pays'];
-	if(!isset($pays)){
+	if(empty($pays)){
 		include("deconnexionBDD.php");
 		header("Location: administration.php?codeRetour=1");
 	}
 	else{
-		$sql="INSERT INTO shop VALUES('".$nomPays."');";
+		$sql="INSERT INTO shop VALUES('".$pays."');";
 		$query=pg_query($vConn,$sql);
+		include("deconnexionBDD.php");
 		if(!$query){
-			include("deconnexionBDD.php");
 			header("Location: administration.php?codeRetour=2");
 		}
-		include("deconnexionBDD.php");
-		header("Location: administration.php?codeRetour=0");
+		else{
+			header("Location: administration.php?codeRetour=0");
+		}
 	}
 ?>
