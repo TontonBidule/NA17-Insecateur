@@ -4,7 +4,7 @@
 	
 	$pseudo = "Arobaz";
 	$vSqlExistanceObjet = "SELECT prixargentreel(o.nom), s.pays pays, j.argent
-			FROM Objet o, Vendre v, joueur j, shop s 
+			FROM Objet o, Vendre v, joueur j, shop s
 			WHERE o.type='achetable' AND o.nom = '$_POST[nomObjet]' AND  v.objet = o.nom AND v.shop = s.pays AND j.pays = s.pays;"; 
 	$vQuery = pg_query($vConn, $vSqlExistanceObjet);
 	
@@ -25,14 +25,20 @@
 	
 	
 	
-	$vSqlModifDonnees = "INSERT INTO effectuertransactionavec VALUES ('$vResult[pays]', '$pseudo', NOW(), $prixpotion);";
+	
+	$vSqlModifDonnees = "
+		INSERT INTO posseder VALUES ('$pseudo', '$_POST[nomObjet]', 0);
+		BEGIN TRANSACTION;";
 	pg_query($vConn, $vSqlModifDonnees);
-	$vSqlModifDonnees = "UPDATE joueur SET argent = argent - $prixpotion WHERE nom='$pseudo'";
+	$vSqlModifDonnees = "UPDATE posseder SET quantite = quantite + 1 WHERE joueur='$pseudo' AND objet = '$_POST[nomObjet]'; 
+		INSERT INTO effectuertransactionavec VALUES ('$vResult[pays]', '$pseudo', NOW(), $prixpotion);
+		UPDATE joueur SET argent = argent - $prixpotion WHERE nom='$pseudo';
+		COMMIT;";
 	pg_query($vConn, $vSqlModifDonnees);
 	
 	include('achatshop.php');
-	
-
+/*INSERT INTO posseder VALUES ('$pseudo', '$_POST[nomObjet]', 0);	
+INSERT INTO posseder VALUES ('Arobaz', 'Potion de soin mineure', 0);*/
 
 
 
