@@ -1,7 +1,11 @@
-
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+      	<title>Achat Shop</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
 
 <?php
-
+include("index.php");
 include('connexionBDD.php');
 			$pseudo = "Arobaz";
 			$vSql = "SELECT o.nom, prixargentreel(o.nom)  
@@ -34,3 +38,6 @@ include('connexionBDD.php');
 	echo '<input type ="submit" value="valider" />';
 			echo "</form>";}
 ?>
+</div>
+</body>
+</html>

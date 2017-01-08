@@ -4,15 +4,10 @@
 	<title>Panneau d'Administration</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
-<body>
- 
-<div id="container" style="width:900px">
  
 <?php
 	include("index.php");
 ?> 
-</div>
-<div id="content" style="background-color:#EEEEEE;height:550px;width:750px;float:left;overflow:auto;">
 <div style="background-color:#fafad2;"><center><b>Les champs avec "<font color="red">★</font>" sont obligatoires  </b></center></div>	
 <?php
 	if(isset($_GET['codeRetour'])){	
