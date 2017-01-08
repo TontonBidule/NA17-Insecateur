@@ -1,6 +1,6 @@
 <?php
 	require_once("connexionBDD.php");
-	
+	$pseudo=$_GET['pseudo'];
 	echo "-CAPTURE DES POKEMONS AUX ALENTOURS -";
 	echo"<br>";
 	echo"<br>";

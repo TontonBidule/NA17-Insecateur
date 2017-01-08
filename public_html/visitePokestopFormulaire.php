@@ -2,7 +2,7 @@
 #(sqrt((coord_latitude-$latJ)**2+(coord_longitude-$lonJ)**2)<$adminD)
 include('connexionBDD.php');
 //TOUJOURS VERIFIER QUE LE PARAMETRES ADMIN EST REMPLI
-$pseudo="Arobaz";
+$pseudo=$_GET['pseudo'];
 $vSql1 = "SELECT * FROM ParametresAdmin";
 $vQuery1 = pg_query($vSql1); 
 $vResult1 = pg_fetch_array($vQuery1);
@@ -23,7 +23,7 @@ $row=pg_fetch_array($vQuery2);
 else
 	{
 		echo "<body onload='pokestops.reset();'>";
-	echo '<form action="visitePokestopResultat.php" id=pokestops method=POST>';
+	echo '<form action="visitePokestopResultat.php?pseudo=$pseudo" id=pokestops method=POST>';
 	do
 		{
 		$nom=$row["nom"];
