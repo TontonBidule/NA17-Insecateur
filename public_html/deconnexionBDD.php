@@ -1,3 +1,3 @@
 <?php 
-	pg_close($vConn);
+	pg_close();
 ?>
