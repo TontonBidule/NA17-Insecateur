@@ -8,28 +8,9 @@
  
 <div id="container" style="width:900px">
  
-<div id="header" style="background-color:#fafad2;">
-	<center><h1 style="margin-bottom:0;">Pokemon Go</h1></center>
-</div>
- 
-<div id="menu" style="background-color:#778899;height:550px;width:150px;float:left;">
-<table>
-	<tr>
-		<td onclick = "window.location = 'accessJoueur.php'">
-		<center>Accéder</center>
-		</td>
-	</tr>
-	<tr>
-		<td onclick = "window.location = 'inscription.php'">
-		<center>Inscription</center>
-		</td>
-	</tr>
-	<tr>
-		<td onclick = "windows.location = 'administration.php'">
-		<center>Administration</center>
-		</td>
-	</tr>
-</table>
+<?php
+	include("index.php");
+?> 
 </div>
 <div id="content" style="background-color:#EEEEEE;height:550px;width:750px;float:left;overflow:auto;">
 <div style="background-color:#fafad2;"><center><b>Les champs avec "<font color="red">★</font>" sont obligatoires  </b></center></div>	
@@ -92,7 +73,7 @@
 		<input type="submit" value="Créer"/>
 	</form></td><td>
 	<form method="POST" Action="creationArene.php">
-		<p><font color="red">★</font>nom Arène:<input type="text" name="nomAre"/></p>
+		<p><font color="red">★</font>Nom Arène:<input type="text" name="nomAre"/></p>
 		<p>Photo (insérer une url):<input type="url" name="photo"/></p>
 		<p>Latitude:<input type="number" name="latitude" step="any"/></p>
 		<p>Longitude:<input type="number" name="longitude" step="any"/></p>

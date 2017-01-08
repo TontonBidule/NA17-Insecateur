@@ -1,4 +1,13 @@
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+      	<title>Exploration en milieu naturel</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
 <?php
+	include("index.php");
+	echo "</div>";
+	echo "<div id='content' style='background-color:#EEEEEE;height:550px;width:750px;float:left;overflow:auto;'>";
 	require_once("connexionBDD.php");
 	$pseudo=$_GET['pseudo'];
 	echo "-CAPTURE DES POKEMONS AUX ALENTOURS -";
@@ -18,3 +27,12 @@
 	echo"<br>";
 	//include(areneEstProche.php);
 ?>
+</div>
+<div id="footer" style="background-color:#fafad2;clear:both;text-align:center;">
+Equipe I de NA17
+</div>
+
+</div>
+</body>
+</html>
+

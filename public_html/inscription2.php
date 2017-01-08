@@ -57,14 +57,14 @@
 	if(!empty($_POST["pays"])){
 		$pays= $_POST["pays"];
 	}
-	if(!empty($_POST["coord_longitude"])){
+	if($_POST["coord_longitude"]==0 || !empty($_POST["coord_longitude"])){
 		$clo= $_POST["coord_longitude"];
 	}
-	if(!empty($_POST["coord_latitude"])){
+	if($_POST["coord_latitude"]==0 || !empty($_POST["coord_latitude"])){
 		$cla= $_POST["coord_latitude"];
 	}
 	
-	if(empty($nom) || empty($email)|| empty($clo)|| empty($cla) || empty($dateNaissance) || empty($genre)){
+	if(empty($nom) || empty($email)|| (!($_POST["coord_longitude"]==0) && empty($clo))|| (!($_POST["coord_latitude"]==0) && empty($cla)) || empty($dateNaissance) || empty($genre)){
 		$messageErr = "Les champs avec * sont obligatoires.";
 	}
 	else if(!is_numeric($clo) || !is_numeric($cla)){

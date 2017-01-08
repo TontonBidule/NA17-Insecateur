@@ -1,7 +1,4 @@
-<html>
-
 <body>
- 
 <div id="container" style="width:900px">
  
 <div id="header" style="background-color:#fafad2;">
@@ -38,16 +35,3 @@
 
 </table>
 </div>
- 
-<div id="content" style="background-color:#EEEEEE;height:550px;width:750px;float:left;">
-<center><div><h3>Bienvenue dans le monde de Pokemon TEST!</h3></div></center>
-<center><div><img src="PokemonIndex.jpg" width="600"/></div></center>
-</div>
- 
-<div id="footer" style="background-color:#fafad2;clear:both;text-align:center;">
-Equipe I de NA17
-</div>
- 
-</div>
-</body>
-</html>
