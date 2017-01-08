@@ -57,8 +57,9 @@ else
 	echo "<br>";
 	echo "<input type = 'submit' value = 'Acceder' >";
 	echo "</form>";
+	echo "</div>";
 }
-</div></center>
+</center>
 </div>
  
 <div id="footer" style="background-color:#fafad2;clear:both;text-align:center;">
