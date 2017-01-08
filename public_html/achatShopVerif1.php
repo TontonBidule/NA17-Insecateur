@@ -8,29 +8,31 @@
 			WHERE o.type='achetable' AND o.nom = '$_POST[nomObjet]' AND  v.objet = o.nom AND v.shop = s.pays AND j.pays = s.pays;"; 
 	$vQuery = pg_query($vConn, $vSqlExistanceObjet);
 	
-	if(! ($vResult = pg_fetch_array($vQuery))){
-		echo "erreur, veuillez saisir un objet existant : $_POST[nomObjet] n existe pas";
-		include('achatshop.php');
-		exit();	
-	}
+	$vResult = pg_fetch_array($vQuery);
 	$prixpotion =  $vResult["prixargentreel"] * $_POST['nombre'];
 	
 	
 	if($vResult['argent'] < $prixpotion){
 		echo 'erreur, tu es peut etre un tres bon dresseur, mais tu n as pas assez d argent';
 		include('achatshop.php');
-		exit();		
+		exit();	
 	}
 	echo 'la transaction a bien ete effectuee o grand dresseur';
 	
+
+	$vSqltentative="SELECT * FROM Posseder WHERE joueur='$pseudo' AND objet='$_POST[nomObjet]'";
+	$vQuery = pg_query($vConn, $vSqltentative);
+	if(!($vResult2 = pg_fetch_array($vQuery))){
+		$vSqlModifDonnees = "
+			INSERT INTO posseder VALUES ('$pseudo', '$_POST[nomObjet]', 0);"
+		pg_query($vConn, $vSqlModifDonnees);
+	}
+
 	
-	
-	
+
 	$vSqlModifDonnees = "
-		INSERT INTO posseder VALUES ('$pseudo', '$_POST[nomObjet]', 0);
-		BEGIN TRANSACTION;";
-	pg_query($vConn, $vSqlModifDonnees);
-	$vSqlModifDonnees = "UPDATE posseder SET quantite = quantite + 1 WHERE joueur='$pseudo' AND objet = '$_POST[nomObjet]'; 
+		BEGIN TRANSACTION;
+		UPDATE posseder SET quantite = quantite + $_POST[nombre] WHERE joueur='$pseudo' AND objet = '$_POST[nomObjet]'; 
 		INSERT INTO effectuertransactionavec VALUES ('$vResult[pays]', '$pseudo', NOW(), $prixpotion);
 		UPDATE joueur SET argent = argent - $prixpotion WHERE nom='$pseudo';
 		COMMIT;";
