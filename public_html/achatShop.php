@@ -20,7 +20,7 @@ include('connexionBDD.php');
 			}
 			else
 			{
-			echo '<form action = "achatShopVerif1.php" method = "POST">';
+			echo '<form action = "achatShopVerif1.php<?php echo "$_GET['.$pseudo.']"?>" method = "POST">';
 			echo 'Choisissez un objet a acheter : <SELECT name="nomObjet" size="1">';
 			do{ 
 		
