@@ -60,7 +60,7 @@ else
 	echo "</div>";
 	echo "</center>";
 }
-
+?>
 </div>
  
 <div id="footer" style="background-color:#fafad2;clear:both;text-align:center;">
