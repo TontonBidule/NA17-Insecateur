@@ -3,7 +3,7 @@
 
 <?php
 include('connexionBDD.php');
-$pseudo='Arobaz';
+$pseudo=$_GET['pseudo'];
 
 $vSql1 = "SELECT maxPokestopsVisitables FROM ParametresAdmin";
 $vQuery1 = pg_query($vConn,$vSql1); 
@@ -18,7 +18,7 @@ $nbPokestopsVisitesAjd= $vResult1['nbpokestopsvisitesajd'];
 $restant=$maxPokestopsVisitables-$nbPokestopsVisitesAjd;
 
 if (!isset($_POST['pokestop']))
-{header('Location:explorer.php');}
+{header('Location:explorer.php?pseudo='.$pseudo);}
 
 if (($restant)<0)
 	{
@@ -58,6 +58,7 @@ else
 		if(empty($row))
 			{
 			echo "Pas d'objets dans celui-la...";	
+			echo"<br>";
 			}
 		else
 			{
@@ -108,7 +109,7 @@ else
 			}
 		}
 	}
-echo '<a href="http://tuxa.sme.utc/~nf17a016/explorer.php">Continuer a explorer !</a>';
+echo '<a href="http://tuxa.sme.utc/~nf17a016/explorer.php?pseudo='.$pseudo.'">Continuer a explorer !</a>';
 echo "</html>";
 ?>
 </html>

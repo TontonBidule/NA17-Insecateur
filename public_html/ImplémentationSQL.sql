@@ -187,11 +187,39 @@ $$ LANGUAGE SQL;
 
 
 CREATE OR REPLACE FUNCTION PokestopPotentiels (pseudo text,lim float)RETURNS TABLE(nom text) AS $$
-	SELECT Pokestop.nom
+	SELECT pokestop
+	FROM Visiter
+	RIGHT JOIN 
+	(SELECT Pokestop.nom
 	FROM Joueur, Pokestop
-	WHERE Joueur.nom=pseudo AND(SQRT(POWER(Pokestop.coord_latitude::float-Joueur.coord_latitude::float,2)::float+ pow(Pokestop.coord_longitude::float-Joueur.coord_longitude::float,2)::float)::float<=lim)
+	WHERE Joueur.nom=pseudo AND(SQRT(POWER(Pokestop.coord_latitude::float-Joueur.coord_latitude::float,2)::float+ pow(Pokestop.coord_longitude::float-Joueur.coord_longitude::float,2)::float)::float<=lim)) AS PokestopsAlentours ON Visiter.pokestop=PokestopsAlentours.nom
+	WHERE (CURRENT_TIMESTAMP-Visiter.derniereVisite>interval '1 minutes') AND PokestopsAlentours.nom IS NULL;
 $$ LANGUAGE SQL;
 
+CREATE OR REPLACE FUNCTION PokestopPotentiels (pseudo text,lim float)RETURNS TABLE(nom text) AS $$
+	SELECT pokestop
+	FROM Visiter
+	LEFT JOIN 
+	(SELECT Pokestop.nom
+	FROM Joueur, Pokestop
+	WHERE Joueur.nom='Arobaz' AND(SQRT(POWER(Pokestop.coord_latitude::float-Joueur.coord_latitude::float,2)::float+ pow(Pokestop.coord_longitude::float-Joueur.coord_longitude::float,2)::float)::float<10.0)) AS PokestopsAlentours ON Visiter.pokestop=PokestopsAlentours.nom
+	WHERE (CURRENT_TIMESTAMP-Visiter.derniereVisite>interval '1 minutes') AND Visiter.pokestop IS NULL ;
+$$ LANGUAGE SQL;
+
+SELECT pokestop
+	FROM (Visiter
+	INNER JOIN 
+	(SELECT Pokestop.nom
+	FROM Joueur, Pokestop
+	WHERE Joueur.nom='Arobaz')AS PokestopsAlentours ON Visiter.pokestop=PokestopsAlentours.nom )
+	WHERE (CURRENT_TIMESTAMP-Visiter.derniereVisite>interval '1 minutes') AND Visiter.pokestop IS NULL ;
+	
+	SELECT nom FROM Visiter
+	RIGHT JOIN 
+	(SELECT Pokestop.nom
+	FROM Joueur, Pokestop
+	WHERE Joueur.nom='Arobaz')AS PokestopsAlentours ON Visiter.pokestop=PokestopsAlentours.nom AND Visiter.joueur='Arobaz' AND ((CURRENT_TIMESTAMP-Visiter.derniereVisite>interval '1 minutes') OR Visiter.derniereVisite IS NULL) AND(SQRT(POWER(Pokestop.coord_latitude::float-Joueur.coord_latitude::float,2)::float+ pow(Pokestop.coord_longitude::float-Joueur.coord_longitude::float,2)::float)::float<100.0));
+	
 CREATE OR REPLACE FUNCTION ArenesPotentielles (pseudo text,lim float)RETURNS TABLE(nom text) AS $$
 	SELECT Arene.nom
 	FROM Joueur, Arene

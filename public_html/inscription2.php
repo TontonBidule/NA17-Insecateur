@@ -86,20 +86,12 @@
 		$engineLoaded = true;
 		include('connexionBDD.php');
 		}
-		$vSql ="INSERT INTO joueur (nom, email, dateNaissance, genre, pays, coord_longitude, coord_latitude) VALUES ('".
-			$nom."', '".
-			$email."', '".
-			$dateNaissance."', '".
-			$genre."', '".
-			$pays."', '".
-			$clo."', '".
-			$cla."'"
-			.")";
+		$vSql ="INSERT INTO joueur  VALUES ('".$nom."', '".$email."', '".$dateNaissance."', '".$genre."', '".$pays."', 0,'".$clo."', '".$cla."',0,0,CURRENT_TIMESTAMP,0,0)";
 		//echo $vSql;
 		$vQuery=pg_query($vConn, $vSql);
 		if($vQuery){
 			echo "<tr><td>Inscription avec succés!</td></tr>";
-			echo "<tr><td><button onclick =\"window.location = 'accessJoueur.php'\" >Retourner</button></tr></td>";
+			echo "<tr><td><button onclick =\"window.location = 'accessJoueur.php?pseudo=".$nom."'\" >Retourner</button></tr></td>";
 		}
 		else{
 			$Err = pg_ErrorMessage();

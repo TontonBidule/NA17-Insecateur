@@ -33,10 +33,11 @@
 </table>
 </div>
 <?php
- if (!isset($_GET['pseudo']))
+ if (isset($_GET['pseudo']))
 {
-	echo "Vous n'etes pas connectes !<br><br>";
-	echo '<a href="http://tuxa.sme.utc/~nf17a016/accessJoueur.php">Connexion !</a>';
+	echo "<br>";
+	echo "Vous etes deja inscrit !<br><br>";
+	echo '<a href="index.php?pseudo='.$_GET['pseudo'].'">Retour au menu</a>';
 }
 else
 {
@@ -57,7 +58,7 @@ echo('<div id="content" style="background-color:#EEEEEE;height:550px;width:750px
 	</tr>
 	
 	<tr>
-		<td>Date de naissance(format:1992/06/06) * : </td>
+		<td>Date de naissance(format:YYYY/MM/JJ) * : </td>
 		<td><input type = "date" name = "dateNaissance"></td>
 	</tr>
 	<tr>

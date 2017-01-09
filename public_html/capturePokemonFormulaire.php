@@ -3,7 +3,6 @@
 #(sqrt((coord_latitude-$latJ)**2+(coord_longitude-$lonJ)**2)<$adminD)
 include('connexionBDD.php');
 //AUCUN SELECTIONNE
-$pseudo="Arobaz";
 $vSql1 = "SELECT * FROM ParametresAdmin";
 $vQuery1 = pg_query($vConn,$vSql1); 
 $vResult1 = pg_fetch_array($vQuery1);

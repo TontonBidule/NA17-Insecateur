@@ -18,7 +18,7 @@ $nbPokemonsCapturesAjd= $vResult1['nbPokemonsCapturesAjd'];
 $restant=$maxCapture-$nbPokemonsCapturesAjd;
 
 if (!isset($_POST['pokemon']))
-{header('Location:explorer.php');}
+{header('Location:explorer.php?pseudo='.$pseudo);}
 
 if (($restant)<0)
 	{

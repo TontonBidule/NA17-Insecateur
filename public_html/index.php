@@ -15,16 +15,16 @@
 </tr>
 <tr>
 <td onclick = "window.location = 'inscription.php<?php if(isset($_GET['pseudo'])){echo "?pseudo=$_GET[pseudo]";} ?>'">
-<center>Inscripton</center>
-		</td>
-</tr>
-<tr>
-<td onclick = "window.location = 'explorer.php<?php if(isset($_GET['pseudo'])){echo "?pseudo=$_GET[pseudo]";} ?>'">
-<center>Administration</center>
+<center>Inscription</center>
 		</td>
 </tr>
 <tr>
 <td onclick = "window.location = 'administration.php<?php if(isset($_GET['pseudo'])){echo "?pseudo=$_GET[pseudo]";} ?>'">
+<center>Administration</center>
+		</td>
+</tr>
+<tr>
+<td onclick = "window.location = 'explorer.php<?php if(isset($_GET['pseudo'])){echo "?pseudo=$_GET[pseudo]";} ?>'">
 <center>Explorer</center>
 		</td>
 </tr>
