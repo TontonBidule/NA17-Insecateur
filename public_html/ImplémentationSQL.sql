@@ -1,11 +1,34 @@
+DROP  TABLE EffectuerTransactionAvec CASCADE;
+DROP TABLE Proposer CASCADE;
+DROP TABLE Posseder CASCADE;
+DROP TABLE Vendre CASCADE;
+DROP TABLE  Visiter CASCADE;
+DROP TABLE  Connaitre CASCADE;
+DROP TABLE CombattreDans CASCADE;
+DROP TABLE ParametresAdmin CASCADE;
+DROP TABLE Potion CASCADE;
+DROP TABLE Shop CASCADE;
+DROP TABLE Pokestop CASCADE;
+DROP TABLE Arene CASCADE;
+DROP TABLE PokemonCapture CASCADE;
+DROP TABLE PokemonSauvage CASCADE;
+DROP TABLE Pokeball CASCADE;
+DROP TABLE Joueur CASCADE;
+DROP TABLE IndividuPokemon CASCADE;
+DROP TABLE Objet CASCADE;
+DROP TABLE EspecePokemon CASCADE;
+DROP TABLE TypePokemon CASCADE;
+
+
+
 CREATE OR REPLACE TYPE typeObjet AS ENUM ('achetable','trouvable','donne');
 CREATE OR REPLACE TYPE typeSexe AS ENUM ('masculin','feminin');
 CREATE OR REPLACE TYPE typePokeball AS ENUM ('artisanale','classique');
 
-CREATE  TABLE TypePokemon(
+CREATE TABLE TypePokemon(
 	nom varchar PRIMARY KEY);
 	
-CREATE  TABLE EspecePokemon(
+CREATE TABLE EspecePokemon(
 	nom varchar PRIMARY KEY,
 	numFamille integer,
 	probaApparition float,
@@ -20,18 +43,14 @@ CREATE  TABLE EspecePokemon(
 	CHECK(probaApparition>=0 AND probaApparition<=1 AND probaCapture>=0 AND probaCapture<=1)
 	);
 	
-CREATE  TABLE Objet(
+CREATE TABLE Objet(
 	nom varchar PRIMARY KEY,
 	type typeObjet not null,
 	description varchar,
 	prixVente integer
 );
 
-
-
-
-
-CREATE  TABLE IndividuPokemon(
+CREATE TABLE IndividuPokemon(
 	nom varchar references EspecePokemon(nom),
 	num integer,
 	attaqueIV float,
@@ -43,7 +62,7 @@ CREATE  TABLE IndividuPokemon(
 	CHECK(attaqueIV>=0 AND attaqueIV<=15 AND defenseIV>=0 AND defenseIV<=15 AND santeIV>=0 AND santeIV<=15)
 	);
 
-CREATE  TABLE Joueur(
+CREATE TABLE Joueur(
 	nom varchar PRIMARY KEY,
 	email varchar unique,
 	dateNaissance date not null,
@@ -61,12 +80,12 @@ CREATE  TABLE Joueur(
 	
 );
 
-CREATE  TABLE Pokeball(
+CREATE TABLE Pokeball(
 	nom varchar PRIMARY KEY references Objet(nom),
 	type typePokeball
 );
 
-CREATE  TABLE PokemonSauvage(
+CREATE TABLE PokemonSauvage(
 	nom varchar,
 	num integer,
 	coord_latitude float,
@@ -76,7 +95,7 @@ CREATE  TABLE PokemonSauvage(
 	FOREIGN KEY(nom,num) REFERENCES IndividuPokemon(nom,num)
 );
 
-CREATE  TABLE PokemonCapture(
+CREATE TABLE PokemonCapture(
 	nom varchar,
 	num integer,
 	dresseur varchar not null references Joueur(nom),
@@ -85,7 +104,7 @@ CREATE  TABLE PokemonCapture(
 	FOREIGN KEY(nom,num) REFERENCES IndividuPokemon(nom,num)
 );
 
-CREATE  TABLE Arene(
+CREATE TABLE Arene(
 	nom varchar PRIMARY KEY,
 	photo varchar unique,
 	coord_latitude float,
@@ -95,7 +114,7 @@ CREATE  TABLE Arene(
 
 
 
-CREATE  TABLE Pokestop(
+CREATE TABLE Pokestop(
 	nom varchar PRIMARY KEY,
 	photo varchar unique,
 	coord_latitude float,
@@ -103,21 +122,18 @@ CREATE  TABLE Pokestop(
 	unique(coord_latitude, coord_longitude)
 );
 
-CREATE  TABLE Shop(
+CREATE TABLE Shop(
 	pays varchar PRIMARY KEY
 );
 
 
 
-CREATE  TABLE Potion(
+CREATE TABLE Potion(
 	nom varchar PRIMARY KEY references Objet(nom),
 	santeRestauree integer not null
 );
 
-
-
-
-CREATE  TABLE ParametresAdmin(
+CREATE TABLE ParametresAdmin(
 	distanceMaxPokestop integer,
 	distanceMaxPokemon integer,
 	maxCapture integer,
@@ -129,39 +145,39 @@ CREATE  TABLE ParametresAdmin(
 INSERT INTO ParametresAdmin VALUES(1,0,0,0,0);
 
 
-CREATE  TABLE CombattreDans(
+CREATE TABLE CombattreDans(
 	arene varchar references Arene(nom),
 	joueur varchar references Joueur(nom),
 	PRIMARY KEY(arene,joueur)
 );
 
-CREATE  TABLE  Connaitre(
+CREATE TABLE  Connaitre(
 	joueur varchar references Joueur(nom),
 	pokemon varchar references EspecePokemon(nom),
 	PRIMARY KEY(joueur,pokemon)
 );
 
-CREATE  TABLE  Visiter(
+CREATE TABLE  Visiter(
 	joueur varchar references Joueur(nom),
 	pokestop varchar references Pokestop(nom),
 	derniereVisite date,
 	PRIMARY KEY(joueur,pokestop)
 );
 
-CREATE  TABLE Vendre(
+CREATE TABLE Vendre(
 	shop varchar references Shop(pays),
 	objet varchar references Objet(nom),
 	PRIMARY KEY(shop,objet)
 );
 
-CREATE  TABLE Posseder(
+CREATE TABLE Posseder(
 	joueur varchar references Joueur(nom),
 	objet varchar references Objet(nom),
 	quantite integer NOT NULL,
 	PRIMARY KEY(joueur,objet)
 );
 
-CREATE  TABLE Proposer(
+CREATE TABLE Proposer(
 	pokestop varchar references Pokestop(nom),
 	objet varchar references Objet(nom),
 	quantite integer NOT NULL,
@@ -176,15 +192,13 @@ CREATE  TABLE EffectuerTransactionAvec(
 	PRIMARY KEY(shop,joueur, date)
 );
 
+
+
 CREATE OR REPLACE FUNCTION PokemonPotentiels (pseudo text,lim float)RETURNS TABLE(nom VARCHAR,num int) AS $$
 	SELECT PokemonSauvage.nom,PokemonSauvage.num
 	FROM Joueur, PokemonSauvage 
 	WHERE Joueur.nom=pseudo AND(SQRT(POWER(PokemonSauvage.coord_latitude::float-Joueur.coord_latitude::float,2)::float+ pow(PokemonSauvage.coord_longitude::float-Joueur.coord_longitude::float,2)::float)::float<=lim)
 $$ LANGUAGE SQL;
-
-
-
-
 
 CREATE OR REPLACE FUNCTION PokestopPotentiels (pseudo text,lim float)RETURNS TABLE(nom text) AS $$
 	SELECT nom FROM Visiter
@@ -196,12 +210,7 @@ CREATE OR REPLACE FUNCTION PokestopPotentiels (pseudo text,lim float)RETURNS TAB
 	ON Visiter.pokestop=PokestopsAlentours.nom 
 	AND Visiter.joueur=pseudo
 	WHERE ((CURRENT_TIMESTAMP-Visiter.derniereVisite>interval '1 minutes') OR Visiter.derniereVisite IS NULL)	;
-	$$ LANGUAGE SQL;
-	
-	
-	
-
-
+$$ LANGUAGE SQL;
 
 
 CREATE OR REPLACE FUNCTION ArenesPotentielles (pseudo text,lim float)RETURNS TABLE(nom text) AS $$
@@ -261,6 +270,22 @@ CREATE OR REPLACE FUNCTION prixArgentReel(nomObjet VARCHAR) RETURNS FLOAT AS $$
 	WHERE o.nom=nomObjet;
 $$ LANGUAGE SQL;
 
+CREATE OR REPLACE FUNCTION apparitionRand() RETURNS VARCHAR
+	DECLARE
+		random FLOAT;
+		name VARCHAR;
+	BEGIN
+		random:=RAND();
+		SELECT nom INTO name
+		FROM EspecePokemon
+		WHERE sumProba<random; --le but ici est de trouver le plus grand sumProba qui ne dépasse pas random
+		AND sumProba-random = (SELECT MAX(sumProba-random)
+					FROM EspecePokemon
+					WHERE sumProba<random);
+		RETURN name;
+	END;
+
+
 INSERT INTO ParametresAdmin VALUES('10','10','10','10','10');
 INSERT INTO TypePokemon VALUES ('feu');
 INSERT INTO TypePokemon VALUES ('eau');
@@ -292,7 +317,7 @@ INSERT INTO Proposer VALUES ('Piscine','Super bonbon',3);
 INSERT INTO Vendre VALUES ('France','Repousse');
 INSERT INTO Vendre VALUES ('France','Super bonbon');
 
-//exemple d'INSERT pour effectuer tous les tests nécessaires '
+-- exemple d'INSERT pour effectuer tous les tests nécessaires
 INSERT INTO Joueur VALUES
 ('Mare','benjami.mare@etu.utc.fr',to_date('23051996','DDMMYYYY'),'masculin','France',0,0,0,0,0,to_date('31122016','DDMMYYYY'),0,0);
 
