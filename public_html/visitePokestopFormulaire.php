@@ -31,7 +31,7 @@ else
 		echo "<br>";// on affiche l'option.
 		}
 	while($row = pg_fetch_array($vQuery2));
-	echo '<input type="submit" value="Submit">';
+	echo '<input type="submit" value="Visiter">';
 	echo '</form>';
 	echo'</body>';
 	echo '</html>';

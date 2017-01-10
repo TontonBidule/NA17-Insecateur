@@ -14,7 +14,7 @@
 <div id="menu" style="background-color:#778899;height:550px;width:150px;float:left;">
 <table>
 	<tr>
-		<td>
+		<td onclick = "window.location = 'index.php'">
 		<center>Menu</center>
 		</td>
 	</tr>
@@ -42,8 +42,9 @@
 if (isset($_GET['pseudo']))
 {
 	$pseudo=$_GET['pseudo'];
+	echo "<br>";
 	echo $pseudo;
-	echo "Vous etes deja connectes !";
+	echo ", vous etes deja connectes !<br><br>";
 	echo '<a href="http://tuxa.sme.utc/~nf17a016/index.php?pseudo='.$pseudo.'">Retour au menu !</a>';
 }
 else

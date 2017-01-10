@@ -3,7 +3,7 @@
 
 <?php
 include('connexionBDD.php');
-$pseudo='Arobaz';
+$pseudo=$_GET['pseudo'];
 
 $vSql1 = "SELECT maxCapture FROM ParametresAdmin";
 $vQuery1 = pg_query($vConn,$vSql1); 
@@ -66,7 +66,7 @@ else
 	
 }
 echo "<br>";
-echo '<a href="http://tuxa.sme.utc/~nf17a016/explorer.php">Continuer a explorer !</a>';
+echo '<a href="http://tuxa.sme.utc/~nf17a016/explorer.php?pseudo='.$pseudo.'">Continuer a explorer !</a>';
 ?>
  
 </html>

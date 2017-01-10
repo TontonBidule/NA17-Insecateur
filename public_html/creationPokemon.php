@@ -13,7 +13,7 @@
 	$evolDe=$_POST['nomEvolDe'];
 	if(empty($nomPokemon)||empty($probabiliteApparition)||empty($probabiliteCapture)||empty($nomTypePokemon)){
 		include("deconnexionBDD.php");
-		header("Location: administration.php?codeRetour=1");
+		header("Location: administration.php?codeRetour=1&pseudo=".$_GET['pseudo']);
 	}
 	else{
 		if(empty($numPokemon)){$numPokemon="NULL";}
@@ -27,21 +27,21 @@
 		$query=pg_query($vConn,$sql);
 		if(!$query){
 			include("deconnexionBDD.php");
-			header("Location: administration.php?codeRetour=2");
+			header("Location: administration.php?codeRetour=2".$_GET['pseudo']);
 		}
 		else if(!empty($evolDe)){
 			$sql="UPDATE EspecePokemon SET evolution='".$nomPokemon."'WHERE nom='".$evolDe."';";
 			$query=pg_query($vConn,$sql);
 			if(!$query){
 				include("deconnexionBDD.php");
-				header("Location: administration.php?codeRetour=3");
+				header("Location: administration.php?codeRetour=3".$_GET['pseudo']);
 			}
 			else{
-				header("Location: administration.php?codeRetour=0");
+				header("Location: administration.php?codeRetour=0".$_GET['pseudo']);
 			}
 		}else{
 			include("deconnexionBDD.php");
-			header("Location: administration.php?codeRetour=0");
+			header("Location: administration.php?codeRetour=0".$_GET['pseudo']);
 		}
 	}
 ?>

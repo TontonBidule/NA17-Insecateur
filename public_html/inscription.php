@@ -11,7 +11,7 @@
 <div id="menu" style="background-color:#778899;height:550px;width:150px;float:left;">
 <table>
 	<tr>
-		<td>
+		<td onclick = "window.location = 'index.php'">
 		<center>Menu</center>
 		</td>
 	</tr>

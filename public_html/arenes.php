@@ -15,7 +15,7 @@
 	}
 	else
 	{
-	do{echo"nom : $vResult[nom]\n";
+	do{echo"$vResult[nom]\n";
 		echo"\n";}
 	while($vResult = pg_fetch_array($vQuery));
 		

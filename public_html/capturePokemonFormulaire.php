@@ -18,7 +18,7 @@ $row=pg_fetch_array($vQuery2);
 else
 	{
 	echo "<body onload='pokemons.reset();'>";
-	echo '<form action="capturePokemonResultat.php" id=pokemons method=POST>';
+	echo '<form action="capturePokemonResultat.php?pseudo='.$pseudo.'" id=pokemons method=POST>';
 	do
 		{
 		$chaine= $row["nom"].':'.$row["num"];
@@ -26,7 +26,7 @@ else
 		echo "<br>";// on affiche l'option.
 		}
 	while($row = pg_fetch_array($vQuery2));
-	echo '<input type="submit" value="Submit">';
+	echo '<input type="submit" value="Tenter la capture">';
 	echo '</form>';
 	echo '</body>';
 	

@@ -6,7 +6,7 @@
 	$longitude=$_POST['longitude'];
 	if(empty($nomPokestop)){
 		include("deconnexionBDD.php");
-		header("Location: administration.php?codeRetour=1");
+		header("Location: administration.php?codeRetour=1".$_GET['pseudo']);
 	}
 	else{
 		if(empty($url)){$url="NULL";}
@@ -17,10 +17,10 @@
 		$query=pg_query($vConn,$sql);
 		include("deconnexionBDD.php");
 		if($query){
-			header("Location: administration.php?codeRetour=0");
+			header("Location: administration.php?codeRetour=0".$_GET['pseudo']);
 		}
 		else{
-			header("Location: administration.php?codeRetour=2");
+			header("Location: administration.php?codeRetour=2".$_GET['pseudo']);
 		}
 	}
 ?>

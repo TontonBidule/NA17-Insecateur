@@ -13,7 +13,7 @@
 	$evol=$_POST['evolution'];
 	if(empty($nomPokemon)){
 		include("deconnexionBDD.php");
-		header("Location: administration.php?codeRetour=1");
+		header("Location: administration.php?codeRetour=1".$_GET['pseudo']);
 	}
 	else{
 		$sql="UPDATE EspecePokemon SET";

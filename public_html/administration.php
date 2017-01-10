@@ -13,7 +13,7 @@
 	if(isset($_GET['codeRetour'])){	
 		echo "<div style='background-color:#FF0000;'>";
 		if($_GET['codeRetour']==4){
-                        echo "Nom:".$_GET['nom']."<br/>";
+                        echo "Nom:".$_GET['pseudo']."<br/>";
                         echo "Email:".$_GET['email']."<br/>";
                         echo "Date naissance:".$_GET['datenaissance']."<br/>";
                         echo "Genre:".$_GET['genre']."<br/>";
@@ -32,7 +32,7 @@
 			else if($_GET['codeRetour']==2){echo "Une erreur c'est produite";}
 			else if($_GET['codeRetour']==3){echo "Evolution introuvable";}
 			else if($_GET['codeRetour']==4){
-				echo "Nom:".$_GET['nom']."<br/>";
+				echo "Nom:".$_GET['pseudo']."<br/>";
                         	echo "Email:".$_GET['email']."<br/>";
                         	echo "Date naissance:".$_GET['datenaissance']."<br/>";
                         	echo "Genre:".$_GET['genre']."<br/>";
@@ -53,7 +53,7 @@
 ?>
 <div id="form">
 	<table border="1"><tr><td>
-	<form method="POST" Action="creationPokemon.php">
+	<form method="POST" Action="creationPokemon.php?pseudo=<?php echo $_GET['pseudo']?>">
 		<p><font color="red">★</font>Nom Pokémon:<input type="text" name="nomPok"/></p>
 		<p>Num Famille:<input type="number" step="1" min="0" name="numFam"/></p>
 		<p><font color="red">★</font>Probabilité Apparition:<input type="number" max="0.1" min="0" step="0.000001" name="probaApp"/></p>
@@ -67,25 +67,25 @@
 		<p>Evolution de (nom):<input type="text" name="nomEvolDe"/></p>
 		<input type="submit" value="Créer"/>
 	</form></td><td>
-	<form method="POST" Action="creationArene.php">
+	<form method="POST" Action="creationArene.php?pseudo=<?php echo $_GET['pseudo']?>">
 		<p><font color="red">★</font>Nom Arène:<input type="text" name="nomAre"/></p>
 		<p>Photo (insérer une url):<input type="url" name="photo"/></p>
 		<p>Latitude:<input type="number" name="latitude" step="any"/></p>
 		<p>Longitude:<input type="number" name="longitude" step="any"/></p>
 		<input type="submit" value="Créer"/>
 	</form></td><td>
-	<form method="POST" Action="creationPokestop.php">
+	<form method="POST" Action="creationPokestop.php?pseudo=<?php echo $_GET['pseudo']?>">
 		<p><font color="red">★</font>Nom Pokéstop:<input type="text" name="nomPokestop"/></p>
 		<p>Photo (insérer une url):<input type="url" name="photo"/></p>
 		<p>Latitude:<input type="number" name="latitude" step="any"/></p>
 		<p>Longitude:<input type="number" name="longitude" step="any"/></p>
 		<input type="submit" value="Créer"/>
 	</form></td></tr><tr><td>
-	<form method="POST" Action="creationShop.php">
+	<form method="POST" Action="creationShop.php?pseudo=<?php echo $_GET['pseudo']?>">
 		<p><font color="red">★</font>Pays:<input type="text" name="pays"/></p>
 		<input type="submit" value="Créer"/>
 	</form></td><td>
-	<form method="POST" Action="modifPokemon.php">
+	<form method="POST" Action="modifPokemon.php?pseudo=<?php echo $_GET['pseudo']?>">
 		<p><font color="red">★</font>Nom Pokémon:<input type="text" name="nomPok"/></p>
 		<p>Num Famille:<input type="number" step="1" min="0" name="numFam"/></p>
 		<p>Probabilité Apparition:<input type="number" max="0.1" step="any" name="probaApp"/></p>
@@ -99,7 +99,7 @@
 		<p>Evolution (nom):<input type="text" name="evolution"/></p>
 		<input type="submit" value="Modifier"/>
 	</form></td><td>
-	<form method="GET" Action="voirJoueur.php">
+	<form method="GET" Action="voirJoueur.php?pseudo=<?php echo $_GET['pseudo']?>">
 		<p><font color="red">★</font>Nom Joueur:<input type="text" name="nomJoueur"/></p>
 		<input type="submit" value="Visualier"/>
 	</form></td></tr>
