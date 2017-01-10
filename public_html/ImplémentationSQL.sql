@@ -283,6 +283,21 @@ CREATE OR REPLACE FUNCTION apparitionRand() RETURNS VARCHAR AS $$
         END;$$
 LANGUAGE plpgsql;
 
+CREATE OR REPLACE FUNCTION pokeSauvageApparait() RETURNS VOID AS $$
+        DECLARE
+                newNum integer;
+		nomPokemon VARCHAR;
+        BEGIN
+                SELECT max(num) INTO newNum
+                FROM pokemonSauvage;
+                newNum:=newNum+1;
+                nomPokemon:=apparitionRand();
+		INSERT INTO IndividuPokemon(nom,num,attaqueIV,defenseIV,santeIV,capaciteCombat,objetPorte)
+		VALUES(nomPokemon,newNum,random()*15,random()*15,random()*15,random()*100,null);
+                INSERT INTO pokemonSauvage(nom,num,coord_latitude,coord_longitude)
+                VALUES (nomPokemon,newNum,random()*100,random()*100);
+        END;$$
+LANGUAGE plpgsql;
 
 
 INSERT INTO ParametresAdmin VALUES(10,10,10,10,10);
