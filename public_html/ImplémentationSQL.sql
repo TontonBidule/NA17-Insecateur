@@ -1,4 +1,4 @@
-DROP  TABLE EffectuerTransactionAvec CASCADE;
+DROP TABLE EffectuerTransactionAvec CASCADE;
 DROP TABLE Proposer CASCADE;
 DROP TABLE Posseder CASCADE;
 DROP TABLE Vendre CASCADE;
@@ -27,7 +27,7 @@ CREATE OR REPLACE TYPE typePokeball AS ENUM ('artisanale','classique');
 
 CREATE TABLE TypePokemon(
 	nom varchar PRIMARY KEY);
-	
+
 CREATE TABLE EspecePokemon(
 	nom varchar PRIMARY KEY,
 	numFamille integer,
@@ -42,7 +42,7 @@ CREATE TABLE EspecePokemon(
 	evolution varchar references EspecePokemon(nom),
 	CHECK(probaApparition>=0 AND probaApparition<=1 AND probaCapture>=0 AND probaCapture<=1)
 	);
-	
+
 CREATE TABLE Objet(
 	nom varchar PRIMARY KEY,
 	type typeObjet not null,
@@ -77,7 +77,6 @@ CREATE TABLE Joueur(
 	pokeCoins integer,
 	argent float,
 	unique(coord_latitude, coord_longitude)
-	
 );
 
 CREATE TABLE Pokeball(
@@ -112,8 +111,6 @@ CREATE TABLE Arene(
 	unique(coord_latitude, coord_longitude)
 );
 
-
-
 CREATE TABLE Pokestop(
 	nom varchar PRIMARY KEY,
 	photo varchar unique,
@@ -125,8 +122,6 @@ CREATE TABLE Pokestop(
 CREATE TABLE Shop(
 	pays varchar PRIMARY KEY
 );
-
-
 
 CREATE TABLE Potion(
 	nom varchar PRIMARY KEY references Objet(nom),
@@ -141,9 +136,6 @@ CREATE TABLE ParametresAdmin(
 	valeurArgent float,
 	PRIMARY KEY(distanceMaxPokestop,distanceMaxPokemon,maxCapture,maxPokestopsVisitables)
 );
-
-INSERT INTO ParametresAdmin VALUES(1,0,0,0,0);
-
 
 CREATE TABLE CombattreDans(
 	arene varchar references Arene(nom),
@@ -196,18 +188,18 @@ CREATE  TABLE EffectuerTransactionAvec(
 
 CREATE OR REPLACE FUNCTION PokemonPotentiels (pseudo text,lim float)RETURNS TABLE(nom VARCHAR,num int) AS $$
 	SELECT PokemonSauvage.nom,PokemonSauvage.num
-	FROM Joueur, PokemonSauvage 
+	FROM Joueur, PokemonSauvage
 	WHERE Joueur.nom=pseudo AND(SQRT(POWER(PokemonSauvage.coord_latitude::float-Joueur.coord_latitude::float,2)::float+ pow(PokemonSauvage.coord_longitude::float-Joueur.coord_longitude::float,2)::float)::float<=lim)
 $$ LANGUAGE SQL;
 
 CREATE OR REPLACE FUNCTION PokestopPotentiels (pseudo text,lim float)RETURNS TABLE(nom text) AS $$
 	SELECT nom FROM Visiter
-	RIGHT JOIN 
+	RIGHT JOIN
 	(SELECT Pokestop.nom
 	FROM Joueur, Pokestop
 	WHERE Joueur.nom=pseudo AND (SQRT(POWER(Pokestop.coord_latitude::float-Joueur.coord_latitude::float,2)::float+ pow(Pokestop.coord_longitude::float-Joueur.coord_longitude::float,2)::float)::float<=lim))
-	AS PokestopsAlentours 
-	ON Visiter.pokestop=PokestopsAlentours.nom 
+	AS PokestopsAlentours
+	ON Visiter.pokestop=PokestopsAlentours.nom
 	AND Visiter.joueur=pseudo
 	WHERE ((CURRENT_TIMESTAMP-Visiter.derniereVisite>interval '1 minutes') OR Visiter.derniereVisite IS NULL)	;
 $$ LANGUAGE SQL;
@@ -222,7 +214,7 @@ $$ LANGUAGE SQL;
 CREATE OR REPLACE FUNCTION PokestopAttente (pseudo text,lim float)RETURNS TABLE(nom text, attente interval) AS $$
 	SELECT pokestop,date_trunc('second', '00:01:00'::time-(CURRENT_TIMESTAMP-derniereVisite)::time)
 	FROM Visiter
-	INNER JOIN 
+	INNER JOIN
 	(SELECT Pokestop.nom
 	FROM Joueur, Pokestop
 	WHERE Joueur.nom=pseudo AND(SQRT(POWER(Pokestop.coord_latitude::float-Joueur.coord_latitude::float,2)::float+ pow(Pokestop.coord_longitude::float-Joueur.coord_longitude::float,2)::float)::float<=lim)) AS PokestopsAlentours ON Visiter.pokestop=PokestopsAlentours.nom
@@ -231,7 +223,6 @@ $$ LANGUAGE SQL;
 
 
 CREATE OR REPLACE FUNCTION ShopPotentiel (pseudo text)RETURNS TABLE(pays VARCHAR) AS $$
-	
 	SELECT Shop.pays FROM Shop INNER JOIN Joueur ON Joueur.pays=Shop.pays WHERE Joueur.nom='Arobaz'
 ; $$ LANGUAGE SQL;
 
@@ -249,7 +240,7 @@ CREATE OR REPLACE FUNCTION enregistrerLocalisation(IN latitude INTEGER, IN longi
 LANGUAGE SQL;
 
 CREATE OR REPLACE FUNCTION puissance(numPokemon INTEGER, nomPokemon VARCHAR) RETURNs FLOAT AS $$
-	SELECT ((|/(baseAttaque + attaqueIV))*(|/(baseDefense+defenseIV))*(|/(baseSante+santeIV))) AS puissance 
+	SELECT ((|/(baseAttaque + attaqueIV))*(|/(baseDefense+defenseIV))*(|/(baseSante+santeIV))) AS puissance
 	FROM IndividuPokemon ip, EspecePokemon ep
 	WHERE ip.num=numPokemon
 	AND ip.nom=nomPokemon
@@ -270,23 +261,31 @@ CREATE OR REPLACE FUNCTION prixArgentReel(nomObjet VARCHAR) RETURNS FLOAT AS $$
 	WHERE o.nom=nomObjet;
 $$ LANGUAGE SQL;
 
-CREATE OR REPLACE FUNCTION apparitionRand() RETURNS VARCHAR
-	DECLARE
-		random FLOAT;
-		name VARCHAR;
-	BEGIN
-		random:=RAND();
-		SELECT nom INTO name
-		FROM EspecePokemon
-		WHERE sumProba<random; --le but ici est de trouver le plus grand sumProba qui ne dépasse pas random
-		AND sumProba-random = (SELECT MAX(sumProba-random)
-					FROM EspecePokemon
-					WHERE sumProba<random);
-		RETURN name;
-	END;
+CREATE OR REPLACE FUNCTION apparitionRand() RETURNS VARCHAR AS $$
+        DECLARE
+                rand FLOAT;
+                name VARCHAR;
+                c CURSOR FOR SELECT * FROM EspecePokemon;
+                rec RECORD;
+        BEGIN
+                rand:=RANDOM();
+                OPEN c;
+                LOOP
+                        FETCH c INTO rec;
+                        EXIT WHEN rand<=0;
+                        rand:=rand-rec.probaApparition;
+                        IF rand<0 THEN
+                                name:=rec.nom;
+                        END IF;
+                END LOOP;
+                CLOSE c;
+                RETURN name;
+        END;$$
+LANGUAGE plpgsql;
 
 
-INSERT INTO ParametresAdmin VALUES('10','10','10','10','10');
+
+INSERT INTO ParametresAdmin VALUES(10,10,10,10,10);
 INSERT INTO TypePokemon VALUES ('feu');
 INSERT INTO TypePokemon VALUES ('eau');
 INSERT INTO TypePokemon VALUES ('plante');
