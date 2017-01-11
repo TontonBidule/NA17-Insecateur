@@ -9,10 +9,10 @@ else
 {
 $lonJ= $_POST['lonJ'];
 $latJ =$_POST['latJ'];
-echo $lonJ;
+
 //echo $_POST['nom'];
 
-echo $pseudo;
+
 $vSql = "UPDATE Joueur SET coord_latitude=$latJ,coord_longitude=$lonJ,derniereconnexion=CURRENT_TIMESTAMP WHERE nom='$pseudo'";
 $vQuery = pg_query($vConn,$vSql); 
 

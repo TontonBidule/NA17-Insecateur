@@ -4,6 +4,7 @@
 <?php
 include('connexionBDD.php');
 $pseudo=$_GET['pseudo'];
+$objetchoisi= $_POST['objetchoisi'];
 
 $vSql1 = "SELECT maxCapture FROM ParametresAdmin";
 $vQuery1 = pg_query($vConn,$vSql1); 
@@ -26,8 +27,7 @@ if (($restant)<0)
 	}
 else
 {
-	foreach($_POST['pokemon'] as $valeur)
-	{
+	$valeur=$_POST['pokemon'];
 		//echo "voici";
 		//echo $valeur;
 		$pieces = explode(":",$valeur,2);
@@ -50,7 +50,7 @@ else
 			echo "- CAPTURE REUSSIE, TU REMPORTES $nom -";
 			echo "<br>";
 			$vSql2 = "BEGIN TRANSACTION;
-						INSERT INTO PokemonCapture VALUES('$nom',$num,'$pseudo','pokeball'); 
+						INSERT INTO PokemonCapture VALUES('$nom',$num,'$pseudo','$objetchoisi'); 
 						  DELETE FROM PokemonSauvage WHERE nom='$nom' AND num=$num;
 						    UPDATE Joueur SET nbPokemonsCapturesAjd=nbPokemonsCapturesAjd+1 WHERE nom='$pseudo';
 							  COMMIT;";
@@ -62,9 +62,28 @@ else
 			{
 			echo "- LA CAPTURE DE $nom A ECHOUE ! -";
 			}
-	}
-	
+			
 }
+			
+	$vSql4 = "SELECT quantite FROM Posseder,Pokeball WHERE Posseder.objet=Pokeball.nom AND Posseder.joueur='$pseudo' AND Posseder.objet='$objetchoisi';";
+	$vQuery4 = pg_query($vSql4);
+	
+	if (pg_fetch_array($vQuery4)>0)
+	{
+	
+	$vSql5 = "UPDATE Posseder SET quantite=quantite-1 WHERE Posseder.joueur='$pseudo' AND Posseder.objet='$objetchoisi'";
+	$vQuery5 = pg_query($vConn,$vSql5); 
+	$vResult5 = pg_fetch_array($vQuery5);	
+	
+	}
+else
+{
+	$vSql5 = "DELETE FROM Posseder WHERE Posseder.joueur='$pseudo' AND Posseder.objet='$objetchoisi'";
+	$vQuery5 = pg_query($vConn,$vSql5); 
+	$vResult5 = pg_fetch_array($vQuery5);
+}
+
+
 echo "<br>";
 echo '<a href="http://tuxa.sme.utc/~nf17a016/explorer.php?pseudo='.$pseudo.'">Continuer a explorer !</a>';
 ?>

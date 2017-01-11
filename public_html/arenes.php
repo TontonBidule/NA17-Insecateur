@@ -9,15 +9,25 @@
 	$vSql = "SELECT nom FROM ArenesPotentielles('$pseudo', $lim)";
 	$vQuery = pg_query($vConn, $vSql);
 	
-	if (empty($vResult = pg_fetch_array($vQuery)))
+	if (empty($row = pg_fetch_array($vQuery)))
 	{
 		echo "Pas d'arenes a proximite...";
 	}
 	else
 	{
-	do{echo"$vResult[nom]\n";
-		echo"\n";}
-	while($vResult = pg_fetch_array($vQuery));
+	do{
+	$nom=$row['nom'];
+	echo '<form action="combat.php?pseudo='.$pseudo.'" id=pokemons method=POST>';
+	echo "<input type='radio' name='arene' value='$nom'>$nom";
+		}
+	while($row = pg_fetch_array($vQuery));
+	echo"<br>";
+	echo '<input type="submit" value="Combattre">';
+	echo '</form>';
+	
+	
+	
+	
 		
 	};
 ?>

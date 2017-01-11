@@ -312,15 +312,23 @@ INSERT INTO Pokestop VALUES ('Piscine',NULL,20,5);
 INSERT INTO Objet VALUES ('Potion de soin mineure', 'achetable', 'objet nul', 50);
 INSERT INTO Objet VALUES ('Potion de soin majeure', 'achetable', 'objet nul', 100);
 INSERT INTO Objet VALUES ('Super bonbon','achetable','et glou et glou',20);
-INSERT INTO Objet VALUES ('Repousse','achetable','lssez moi trkl pt1n',30);
+INSERT INTO Objet VALUES ('Repousse','achetable','ca sent pas bon',30);
+INSERT INTO Objet VALUES ('Pokeball','achetable','capture',30);
+INSERT INTO Objet VALUES ('Superball','achetable','capture+',30);
+INSERT INTO Pokeball VALUES ('Pokeball','classique');
+INSERT INTO Pokeball VALUES ('Superball','classique');
 INSERT INTO Potion VALUES ('Potion de soin mineure', 40);
 INSERT INTO Potion VALUES ('Potion de soin majeure', 80);
 INSERT INTO Proposer VALUES ('Boulangerie','Repousse',2);
 INSERT INTO Proposer VALUES ('Boulangerie','Super bonbon',5);
+
 INSERT INTO Proposer VALUES ('Piscine','Repousse',10);
 INSERT INTO Proposer VALUES ('Piscine','Super bonbon',3);
 INSERT INTO Vendre VALUES ('France','Repousse');
 INSERT INTO Vendre VALUES ('France','Super bonbon');
+INSERT INTO Vendre VALUES ('France','Pokeball');
+INSERT INTO Vendre VALUES ('France','Superball');
+
 
 -- exemple d'INSERT pour effectuer tous les tests nécessaires
 INSERT INTO Joueur VALUES
