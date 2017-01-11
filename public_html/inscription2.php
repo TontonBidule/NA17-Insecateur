@@ -34,6 +34,7 @@
  
 <div id="content" style="display:table;margin:0 auto;background-color:#EEEEEE;height:550px;width:750px;float:left;">
 <?php
+	error_reporting(0);
 	$nom= null;
 	$email= null;
 	$dateNaissance= null;
