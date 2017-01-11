@@ -73,7 +73,11 @@
 		<p>Latitude:<input type="number" name="latitude" step="any"/></p>
 		<p>Longitude:<input type="number" name="longitude" step="any"/></p>
 		<input type="submit" value="Créer"/>
-	</form></td><td>
+	</form>
+	<form method='POST' action = 'creationPokemonSauvage.php?pseudo=<?php echo $_GET['pseudo']?>'>
+	<input type = 'submit' value = 'creer pokemon sauvage'>
+	</form>
+	</td><td>
 	<form method="POST" Action="creationPokestop.php?pseudo=<?php echo $_GET['pseudo']?>">
 		<p><font color="red">★</font>Nom Pokéstop:<input type="text" name="nomPokestop"/></p>
 		<p>Photo (insérer une url):<input type="url" name="photo"/></p>
